@@ -1,0 +1,22 @@
+architect:
+  - dgroup
+
+readers:
+  - "urn:github:1651114"
+
+assets:
+  settings.xml: "dgroup/mvn-secret-settings#settings.xml"
+  pubring.gpg: "dgroup/mvn-secret-settings#pubring.gpg"
+  secring.gpg: "dgroup/mvn-secret-settings#secring.gpg"
+
+merge:
+  env:
+      MAVEN_OPTS: "-XX:MaxPermSize=256m -Xmx512m"
+  script:
+    - mvn -Pqulice clean package
+release:
+  script: |
+    mvn versions:set "-DnewVersion=$tag"
+    git add pom.xml
+    git commit -am "$tag"
+    mvn -V -Dgpg.homedir="$HOME" -P qulice,ossrh -s ../settings.xml clean deploy

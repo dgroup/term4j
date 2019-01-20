@@ -1,0 +1,27 @@
+#
+# Check configuration online:
+#   https://lint.travis-ci.org
+
+language: java
+
+sudo: required
+
+cache:
+  directories:
+    - $HOME/.m2
+
+script:
+  - set -e
+  - mvn -Pqulice clean install
+  - mvn -Psonar sonar:sonar -Dsonar.organization=dgroup-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_LOGIN}
+
+env:
+  global:
+    - MAVEN_OPTS="-Xmx256m"
+    - JAVA_OPTS="-Xmx256m"
+
+jdk:
+  - oraclejdk8
+
+after_success:
+  - "bash <(curl -s https://codecov.io/bash)"
