@@ -95,7 +95,9 @@
     <code.cvrg.branch>0.50</code.cvrg.branch>
     <code.cvrg.line>0.50</code.cvrg.line>
     <sonar.coverage.exclusions>
-      **/*Exception.java, **/*Fake*.java,**/*.Fake*.java,**/**.Fake*.java
+      **/*Exception.java,
+      **/*Fake*.java,**/*.Fake*.java,**/**.Fake*.java,
+      **/RuntimeOf.java
     </sonar.coverage.exclusions>
   </properties>
   <dependencies>
@@ -105,7 +107,7 @@
       <version>${cactoos.version}</version>
       <scope>provided</scope>
     </dependency>
-    <!-- @todo Upgrade the hamcrest-all library to the latest release of hamcrest-java -->
+    <!-- @todo #/DEV Upgrade the hamcrest-all library to the latest release of hamcrest-java -->
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-all</artifactId>
@@ -239,9 +241,10 @@
             <configuration>
               <output>file</output>
               <excludes>
-                <exclude>org/dgroup/**/*Exception.*</exclude>
-                <exclude>org/dgroup/**/*/*Fake*.*</exclude>
-                <exclude>org/dgroup/**/*Envelope.*</exclude>
+                <exclude>io/github/dgroup/**/*Exception.*</exclude>
+                <exclude>io/github/dgroup/**/RuntimeOf.*</exclude>
+                <exclude>io/github/dgroup/**/*/*Fake*.*</exclude>
+                <exclude>io/github/dgroup/**/*Envelope.*</exclude>
               </excludes>
             </configuration>
             <executions>

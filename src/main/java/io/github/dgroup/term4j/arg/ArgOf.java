@@ -34,21 +34,21 @@ public final class ArgOf extends Envelope<String> {
 
     /**
      * Ctor.
-     * @param name Cmd argument name.
-     * @param args All cmd arguments.
+     * @param lbl The label of command-line argument.
+     * @param args All command-line arguments.
      */
-    public ArgOf(final String name, final List<String> args) {
-        super(name, args, arg -> arg);
+    public ArgOf(final String lbl, final List<String> args) {
+        super(lbl, args, arg -> arg);
     }
 
     /**
      * Ctor.
-     * @param name Cmd argument name.
-     * @param args All cmd arguments.
+     * @param lbl The label of command-line argument.
+     * @param args All command-line arguments.
      * @param msg Error message in case if arguments wasn't specified by user.
      */
-    public ArgOf(final String name, final List<String> args, final String msg) {
-        super(name, args, arg -> arg, () -> msg);
+    public ArgOf(final String lbl, final List<String> args, final String msg) {
+        super(lbl, args, arg -> arg, () -> msg);
     }
 
 }

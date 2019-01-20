@@ -31,5 +31,7 @@
  *
  * @since 0.1.0
  * @see <a href="https://github.com/dgroup/term4j">GitHub repository</a>
+ * @todo #/DEV Help: simple mechanism to print the help info from the classpath
+ *  resource.
  */
 package io.github.dgroup.term4j;

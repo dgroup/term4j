@@ -22,27 +22,11 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package io.github.dgroup.term4j;
-
-import org.cactoos.Text;
-
 /**
- * Highlighted text.
+ * Classes related to app termination.
  *
- * @since 0.1.0
- * @todo #/DEV Use jansi lib in order to print colored text:
- *  - <em>Green</em>;
- *  - <em>Red</em>;
- *  - <em>Yellow</em>;
- *  - <em>White</em>;
- *  - <em>Black</em>;
- *  and <em>Bold</em> to make the text more expressively.
+ * @author Yurii Dubinka (yurii.dubinka@gmail.com)
+ * @version $Id$
+ * @since 1.0
  */
-public interface Highlighted extends Text {
-
-    /**
-     * Convert the text to the colored string.
-     * @return The colored string
-     */
-    String asString();
-}
+package io.github.dgroup.term4j.runtime;

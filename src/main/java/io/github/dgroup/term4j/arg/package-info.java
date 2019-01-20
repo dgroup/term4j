@@ -26,5 +26,11 @@
  * The classes related to work with command-line arguments.
  *
  * @since 0.1.0
+ * @todo #/DEV FirstIn argument (similar to switch statement) which allows to
+ *  instantiate the first value from the list of the arguments. For example,
+ *  the same parameter might be defined:
+ *  - command-line argument <em>-prop</em>,
+ *  - java property <em>-Dprop</em>
+ *  - env property <em>${PROP}</em>
  */
 package io.github.dgroup.term4j.arg;

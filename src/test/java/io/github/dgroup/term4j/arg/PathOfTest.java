@@ -22,27 +22,29 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package io.github.dgroup.term4j;
+package io.github.dgroup.term4j.arg;
 
-import org.cactoos.Text;
+import org.cactoos.list.ListOf;
+import org.hamcrest.MatcherAssert;
+import org.junit.Test;
+import org.llorllale.cactoos.matchers.IsTrue;
 
 /**
- * Highlighted text.
+ * Test case for {@link PathOf}.
  *
  * @since 0.1.0
- * @todo #/DEV Use jansi lib in order to print colored text:
- *  - <em>Green</em>;
- *  - <em>Red</em>;
- *  - <em>Yellow</em>;
- *  - <em>White</em>;
- *  - <em>Black</em>;
- *  and <em>Bold</em> to make the text more expressively.
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
-public interface Highlighted extends Text {
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+public final class PathOfTest {
 
-    /**
-     * Convert the text to the colored string.
-     * @return The colored string
-     */
-    String asString();
+    @Test
+    public void value() throws ArgNotFoundException {
+        MatcherAssert.assertThat(
+            new PathOf(
+                "-r", new ListOf<>("-r", "readme.md")
+            ).value().toFile().exists(),
+            new IsTrue()
+        );
+    }
 }

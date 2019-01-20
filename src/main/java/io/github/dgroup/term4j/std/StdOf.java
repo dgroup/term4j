@@ -37,10 +37,15 @@ import org.cactoos.scalar.And;
 public final class StdOf extends Envelope {
 
     /**
+     * The indent from the left side for more fancy/readable messages.
+     */
+    private static final String NO_INDENT = "";
+
+    /**
      * Ctor.
      */
     public StdOf() {
-        this(System.out);
+        this(System.out, StdOf.NO_INDENT);
     }
 
     /**
@@ -48,15 +53,38 @@ public final class StdOf extends Envelope {
      * @param std The stream to redirect the output.
      */
     public StdOf(final PrintStream std) {
-        this(msg -> std.println(msg.asString()));
+        this(std, StdOf.NO_INDENT);
     }
 
     /**
      * Ctor.
      * @param std The stream to redirect the output.
+     * @param idnt The indent from the left side of terminal for more
+     *  fancy/readable messages.
+     */
+    public StdOf(final PrintStream std, final String idnt) {
+        this(msg -> std.printf("%s%s%n", idnt, msg.asString()));
+    }
+
+    /**
+     * Ctor.
+     * @param std The writer to redirect the output.
      */
     public StdOf(final Writer std) {
-        this(msg -> std.append(msg.asString()).append(System.lineSeparator()));
+        this(std, StdOf.NO_INDENT);
+    }
+
+    /**
+     * Ctor.
+     * @param std The writer to redirect the output.
+     * @param idnt The indent from the left side of terminal for more
+     *  fancy/readable messages.
+     */
+    public StdOf(final Writer std, final String idnt) {
+        this(msg -> std.append(idnt)
+            .append(msg.asString())
+            .append(System.lineSeparator())
+        );
     }
 
     /**

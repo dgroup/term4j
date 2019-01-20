@@ -21,28 +21,26 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package io.github.dgroup.term4j.arg;
 
-package io.github.dgroup.term4j;
-
-import org.cactoos.Text;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 /**
- * Highlighted text.
+ * The single file command-line argument.
  *
  * @since 0.1.0
- * @todo #/DEV Use jansi lib in order to print colored text:
- *  - <em>Green</em>;
- *  - <em>Red</em>;
- *  - <em>Yellow</em>;
- *  - <em>White</em>;
- *  - <em>Black</em>;
- *  and <em>Bold</em> to make the text more expressively.
  */
-public interface Highlighted extends Text {
+public final class PathOf extends Envelope<Path> {
 
     /**
-     * Convert the text to the colored string.
-     * @return The colored string
+     * Ctor.
+     * @param lbl The label of command-line argument.
+     * @param args All command-line arguments.
      */
-    String asString();
+    public PathOf(final String lbl, final List<String> args) {
+        super(lbl, args, arg -> Paths.get(arg));
+    }
+
 }

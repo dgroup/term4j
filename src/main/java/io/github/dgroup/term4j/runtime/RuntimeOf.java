@@ -21,28 +21,41 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package io.github.dgroup.term4j.runtime;
 
-package io.github.dgroup.term4j;
-
-import org.cactoos.Text;
+import io.github.dgroup.term4j.Runtime;
+import org.cactoos.Scalar;
+import org.cactoos.scalar.UncheckedScalar;
 
 /**
- * Highlighted text.
+ * Represent current application process.
  *
  * @since 0.1.0
- * @todo #/DEV Use jansi lib in order to print colored text:
- *  - <em>Green</em>;
- *  - <em>Red</em>;
- *  - <em>Yellow</em>;
- *  - <em>White</em>;
- *  - <em>Black</em>;
- *  and <em>Bold</em> to make the text more expressively.
  */
-public interface Highlighted extends Text {
+public final class RuntimeOf implements Runtime {
 
     /**
-     * Convert the text to the colored string.
-     * @return The colored string
+     * Origin.
      */
-    String asString();
+    private final Scalar<java.lang.Runtime> runtime;
+
+    /**
+     * Ctor.
+     */
+    public RuntimeOf() {
+        this(java.lang.Runtime::getRuntime);
+    }
+
+    /**
+     * Ctor.
+     * @param runtime Represent current application process.
+     */
+    public RuntimeOf(final Scalar<java.lang.Runtime> runtime) {
+        this.runtime = runtime;
+    }
+
+    @Override
+    public void shutdownWith(final int code) {
+        new UncheckedScalar<>(this.runtime).value().exit(code);
+    }
 }
