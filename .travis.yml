@@ -12,7 +12,7 @@ cache:
 
 script:
   - set -e
-  - mvn -Pqulice clean install
+  - mvn -Dpropof=10 -Pqulice clean install
   - mvn -Psonar sonar:sonar -Dsonar.organization=dgroup-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_LOGIN}
 
 env:

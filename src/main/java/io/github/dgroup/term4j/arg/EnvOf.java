@@ -21,25 +21,50 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.github.dgroup.term4j.highlighted;
+package io.github.dgroup.term4j.arg;
 
-import org.fusesource.jansi.Ansi;
+import io.github.dgroup.term4j.Arg;
 
 /**
- * Highlight the text using white color from <em>jansi</em> library.
+ * The system environment variable.
  *
- * @see Ansi.Color#GREEN
+ * Examples are <em>JAVA_HOME</em>, <em>PATH</em>.
+ * @see System#getenv()
  *
  * @since 0.1.0
  */
-public final class Green extends Envelope {
+public final class EnvOf extends Envelope<String> {
 
     /**
      * Ctor.
-     * @param msg The original message.
+     * @param variable The system environment variable.
      */
-    public Green(final Object msg) {
-        super(msg, Ansi.Color.GREEN);
-    }
+    public EnvOf(final String variable) {
+        super(
+            // @checkstyle AnonInnerLengthCheck (25 lines)
+            () -> new Arg<String>() {
 
+                @Override
+                public String label() {
+                    return variable;
+                }
+
+                @Override
+                public String value() throws ArgNotFoundException {
+                    if (!this.specifiedByUser()) {
+                        throw new ArgNotFoundException(
+                            "The '%s' variable isn't set to the environment",
+                            variable
+                        );
+                    }
+                    return System.getenv(variable);
+                }
+
+                @Override
+                public boolean specifiedByUser() {
+                    return System.getenv(variable) != null;
+                }
+            }
+        );
+    }
 }

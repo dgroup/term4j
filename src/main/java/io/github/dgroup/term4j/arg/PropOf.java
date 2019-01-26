@@ -23,50 +23,48 @@
  */
 package io.github.dgroup.term4j.arg;
 
-import org.cactoos.Text;
-import org.cactoos.text.FormattedText;
-import org.cactoos.text.UncheckedText;
+import io.github.dgroup.term4j.Arg;
 
 /**
- * Thrown in case if command-line argument is required, but not found within
- *  the arguments specified by the user.
+ * The application property.
+ *
+ * The property can be specified using <em>-D</em> flag.
+ * @see System#getProperties()
  *
  * @since 0.1.0
  */
-public class ArgNotFoundException extends Exception {
+public final class PropOf extends Envelope<String> {
 
     /**
      * Ctor.
-     * @param cause Origin.
+     * @param property The name of the application property.
+     * @see System#getProperty(String)
      */
-    public ArgNotFoundException(final Exception cause) {
-        super(cause);
-    }
+    public PropOf(final String property) {
+        super(
+            // @checkstyle AnonInnerLengthCheck (25 lines)
+            () -> new Arg<String>() {
 
-    /**
-     * Ctor.
-     * @param ptrn The pattern to build the error message.
-     * @param args The pattern arguments to build the error message
-     * @see org.cactoos.text.FormattedText
-     */
-    public ArgNotFoundException(final String ptrn, final Object... args) {
-        this(new FormattedText(ptrn, args));
-    }
+                @Override
+                public String label() {
+                    return property;
+                }
 
-    /**
-     * Ctor.
-     * @param msg Detailed description with missing argument.
-     */
-    public ArgNotFoundException(final Text msg) {
-        this(new UncheckedText(msg).asString());
-    }
+                @Override
+                public String value() throws ArgNotFoundException {
+                    if (!this.specifiedByUser()) {
+                        throw new ArgNotFoundException(
+                            "The '%s' property isn't set", property
+                        );
+                    }
+                    return System.getProperty(property);
+                }
 
-    /**
-     * Ctor.
-     * @param msg Detailed description with missing argument.
-     */
-    public ArgNotFoundException(final String msg) {
-        super(msg);
+                @Override
+                public boolean specifiedByUser() {
+                    return System.getProperty(property) != null;
+                }
+            }
+        );
     }
-
 }

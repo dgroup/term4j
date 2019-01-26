@@ -21,25 +21,48 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.github.dgroup.term4j.highlighted;
 
-import org.fusesource.jansi.Ansi;
+package io.github.dgroup.term4j.arg;
+
+import org.cactoos.list.ListOf;
+import org.hamcrest.core.IsEqual;
+import org.junit.Test;
+import org.llorllale.cactoos.matchers.Assertion;
 
 /**
- * Highlight the text using white color from <em>jansi</em> library.
- *
- * @see Ansi.Color#GREEN
+ * Test case for {@link NumberOf}.
  *
  * @since 0.1.0
+ * @checkstyle MagicNumberCheck (500 lines)
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
-public final class Green extends Envelope {
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+public final class NumberOfTest {
 
-    /**
-     * Ctor.
-     * @param msg The original message.
-     */
-    public Green(final Object msg) {
-        super(msg, Ansi.Color.GREEN);
+    @Test
+    public void doubleValue() {
+        new Assertion<>(
+            "The argument has expected double value equal to 5.5",
+            () -> new NumberOf(
+                "--double-arg",
+                new ListOf<>("--double-arg", "5.5")
+            ).value().doubleValue(),
+            new IsEqual<>(5.5)
+        ).affirm();
+    }
+
+    @Test
+    public void intValue() throws ArgNotFoundException {
+        new Assertion<>(
+            "The argument has expected int value equal to 5",
+            () -> new NumberOf(
+                "--int-arg",
+                new ListOf<>(
+                    "--int-arg", "5"
+                )
+            ).value().intValue(),
+            new IsEqual<>(5)
+        ).affirm();
     }
 
 }

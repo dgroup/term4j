@@ -13,10 +13,10 @@ merge:
   env:
       MAVEN_OPTS: "-XX:MaxPermSize=256m -Xmx512m"
   script:
-    - mvn -Pqulice clean package
+    - mvn -Dpropof=10 -Pqulice clean package
 release:
   script: |
     mvn versions:set "-DnewVersion=$tag"
     git add pom.xml
     git commit -am "$tag"
-    mvn -V -Dgpg.homedir="$HOME" -P qulice,ossrh -s ../settings.xml clean deploy
+    mvn -V -Dgpg.homedir="$HOME" -Dpropof=10 -P qulice,ossrh -s ../settings.xml clean deploy

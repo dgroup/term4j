@@ -49,6 +49,7 @@ public interface Std {
      * @param args The pattern arguments to build the text
      * @throws UncheckedStdOutputException In the case of STD output printing
      *  failure.
+     * @see org.cactoos.text.FormattedText
      */
     void print(String ptrn, Object... args);
 

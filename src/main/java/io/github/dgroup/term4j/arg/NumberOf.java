@@ -21,25 +21,23 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.github.dgroup.term4j.highlighted;
+package io.github.dgroup.term4j.arg;
 
-import org.fusesource.jansi.Ansi;
+import java.util.List;
 
 /**
- * Highlight the text using white color from <em>jansi</em> library.
- *
- * @see Ansi.Color#GREEN
+ * The single numeric command-line argument.
  *
  * @since 0.1.0
  */
-public final class Green extends Envelope {
+public final class NumberOf extends Envelope<Number> {
 
     /**
      * Ctor.
-     * @param msg The original message.
+     * @param lbl The label of command-line argument.
+     * @param args All command-line arguments.
      */
-    public Green(final Object msg) {
-        super(msg, Ansi.Color.GREEN);
+    public NumberOf(final String lbl, final List<String> args) {
+        super(lbl, args, Double::parseDouble);
     }
-
 }

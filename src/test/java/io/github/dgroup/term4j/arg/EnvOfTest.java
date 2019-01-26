@@ -21,25 +21,29 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.github.dgroup.term4j.highlighted;
 
-import org.fusesource.jansi.Ansi;
+package io.github.dgroup.term4j.arg;
+
+import org.hamcrest.core.IsNot;
+import org.junit.Test;
+import org.llorllale.cactoos.matchers.Assertion;
+import org.llorllale.cactoos.matchers.IsBlank;
 
 /**
- * Highlight the text using white color from <em>jansi</em> library.
- *
- * @see Ansi.Color#GREEN
+ * Test case for {@link EnvOf}.
  *
  * @since 0.1.0
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
-public final class Green extends Envelope {
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+public final class EnvOfTest {
 
-    /**
-     * Ctor.
-     * @param msg The original message.
-     */
-    public Green(final Object msg) {
-        super(msg, Ansi.Color.GREEN);
+    @Test
+    public void value() {
+        new Assertion<>(
+            "The JAVA_HOME environment variable is set and is not blank",
+            () -> new EnvOf("JAVA_HOME").value(),
+            new IsNot<>(new IsBlank())
+        ).affirm();
     }
-
 }
