@@ -44,6 +44,15 @@ public interface Std {
     void print(String... msgs);
 
     /**
+     * Print message to the separate line.
+     * @param ptrn The pattern to build the text.
+     * @param args The pattern arguments to build the text
+     * @throws UncheckedStdOutputException In the case of STD output printing
+     *  failure.
+     */
+    void print(String ptrn, Object... args);
+
+    /**
      * Print each message to the separate line.
      * @param msgs The messages to pring.
      * @throws UncheckedStdOutputException In the case of STD output printing

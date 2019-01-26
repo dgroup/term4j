@@ -22,16 +22,41 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+package io.github.dgroup.term4j.highlighted;
+
+import io.github.dgroup.term4j.std.StdOf;
+import org.junit.Test;
+import org.llorllale.cactoos.matchers.Assertion;
+import org.llorllale.cactoos.matchers.TextIs;
+
 /**
- * Term4j.
- *
- * <p>This is a collection of Java primitives designed in a rather
- * extreme object-objected manner in order to simplify the manipulations with
- * CLI terminal(s) for Java-based applications.</p>
+ * Test case for {@link Bold}.
  *
  * @since 0.1.0
- * @see <a href="https://github.com/dgroup/term4j">GitHub repository</a>
- * @todo #/DEV Help: simple mechanism to print the help info from the classpath
- *  resource.
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
-package io.github.dgroup.term4j;
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+public final class BoldTest {
+
+    @Test
+    public void asString() {
+        new Assertion<>(
+            "Red text is transformed into bold ANSI colored string",
+            () -> new Bold(
+                new Red("Failed")
+            ),
+            new TextIs(
+                "\u001B[1m\u001B[91mFailed\u001B[m\u001B[m"
+            )
+        ).affirm();
+    }
+
+    @Test
+    public void visual() {
+        new StdOf().print(
+            new Bold(
+                new Red("Failed")
+            )
+        );
+    }
+}

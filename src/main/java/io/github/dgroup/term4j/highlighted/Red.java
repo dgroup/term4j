@@ -21,17 +21,25 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package io.github.dgroup.term4j.highlighted;
+
+import org.fusesource.jansi.Ansi;
 
 /**
- * Term4j.
+ * Highlight the text using red color from <em>jansi</em> library.
  *
- * <p>This is a collection of Java primitives designed in a rather
- * extreme object-objected manner in order to simplify the manipulations with
- * CLI terminal(s) for Java-based applications.</p>
+ * @see Ansi.Color#RED
  *
  * @since 0.1.0
- * @see <a href="https://github.com/dgroup/term4j">GitHub repository</a>
- * @todo #/DEV Help: simple mechanism to print the help info from the classpath
- *  resource.
  */
-package io.github.dgroup.term4j;
+public final class Red extends Envelope {
+
+    /**
+     * Ctor.
+     * @param msg The original message.
+     */
+    public Red(final Object msg) {
+        super(msg, Ansi.Color.RED);
+    }
+
+}

@@ -23,15 +23,8 @@
  */
 
 /**
- * Term4j.
- *
- * <p>This is a collection of Java primitives designed in a rather
- * extreme object-objected manner in order to simplify the manipulations with
- * CLI terminal(s) for Java-based applications.</p>
+ * Unit-tests for the package {@link io.github.dgroup.term4j.highlighted}.
  *
  * @since 0.1.0
- * @see <a href="https://github.com/dgroup/term4j">GitHub repository</a>
- * @todo #/DEV Help: simple mechanism to print the help info from the classpath
- *  resource.
  */
-package io.github.dgroup.term4j;
+package io.github.dgroup.term4j.highlighted;

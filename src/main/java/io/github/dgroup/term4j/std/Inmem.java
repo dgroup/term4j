@@ -30,40 +30,39 @@ import org.cactoos.Text;
 import org.cactoos.collection.Mapped;
 
 /**
- * Fake implementation of {@link Std} for unit-testing purposes.
+ * The {@link Std} which stores all messages in-memory.
  *
  * @since 0.1.0
  */
-public final class Fake extends Envelope {
+public final class Inmem extends Envelope {
 
     /**
-     * Fake lines printed to STD output.
+     * The lines printed to the STD output.
      */
     private final Collection<String> stdout;
 
     /**
      * Ctor.
      */
-    public Fake() {
+    public Inmem() {
         this(new LinkedList<>());
     }
 
     /**
      * Ctor.
      * @param stdout The mutable collection to print the std out.
-     *  Each line
      */
-    public Fake(final Collection<String> stdout) {
+    public Inmem(final Collection<String> stdout) {
         super(msgs -> stdout.addAll(new Mapped<>(Text::asString, msgs)));
         this.stdout = stdout;
     }
 
     /**
-     * All lines (as is, without any modification) which were printed to
-     * fake STD output during the unit testing.
-     * @return The lines printed to fake STD output.
+     * All lines (as is, without any modification) which were printed to the STD
+     *  output.
+     * @return The lines printed to the STD output.
      */
-    public Collection<String> details() {
+    public Collection<String> std() {
         return this.stdout;
     }
 

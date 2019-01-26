@@ -30,13 +30,6 @@ import org.cactoos.Text;
  * Highlighted text.
  *
  * @since 0.1.0
- * @todo #/DEV Use jansi lib in order to print colored text:
- *  - <em>Green</em>;
- *  - <em>Red</em>;
- *  - <em>Yellow</em>;
- *  - <em>White</em>;
- *  - <em>Black</em>;
- *  and <em>Bold</em> to make the text more expressively.
  */
 public interface Highlighted extends Text {
 

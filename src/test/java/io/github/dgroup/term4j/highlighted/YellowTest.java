@@ -22,16 +22,37 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+package io.github.dgroup.term4j.highlighted;
+
+import io.github.dgroup.term4j.std.StdOf;
+import org.junit.Test;
+import org.llorllale.cactoos.matchers.Assertion;
+import org.llorllale.cactoos.matchers.TextIs;
+
 /**
- * Term4j.
- *
- * <p>This is a collection of Java primitives designed in a rather
- * extreme object-objected manner in order to simplify the manipulations with
- * CLI terminal(s) for Java-based applications.</p>
+ * Test case for {@link Yellow}.
  *
  * @since 0.1.0
- * @see <a href="https://github.com/dgroup/term4j">GitHub repository</a>
- * @todo #/DEV Help: simple mechanism to print the help info from the classpath
- *  resource.
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
-package io.github.dgroup.term4j;
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+public final class YellowTest {
+
+    @Test
+    public void asString() {
+        new Assertion<>(
+            "Yellow text is transformed into ANSI colored string",
+            () -> new Yellow("Warning"),
+            new TextIs(
+                "\u001B[93mWarning\u001B[m"
+            )
+        ).affirm();
+    }
+
+    @Test
+    public void visual() {
+        new StdOf().print(
+            new Yellow("Warning")
+        );
+    }
+}

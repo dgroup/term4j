@@ -23,15 +23,10 @@
  */
 
 /**
- * Term4j.
+ * Highlighted texts.
  *
- * <p>This is a collection of Java primitives designed in a rather
- * extreme object-objected manner in order to simplify the manipulations with
- * CLI terminal(s) for Java-based applications.</p>
- *
- * @since 0.1.0
- * @see <a href="https://github.com/dgroup/term4j">GitHub repository</a>
- * @todo #/DEV Help: simple mechanism to print the help info from the classpath
- *  resource.
+ * @author Yurii Dubinka (yurii.dubinka@gmail.com)
+ * @version $Id$
+ * @since 1.0
  */
-package io.github.dgroup.term4j;
+package io.github.dgroup.term4j.highlighted;

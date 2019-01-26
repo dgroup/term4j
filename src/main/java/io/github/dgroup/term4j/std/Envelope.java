@@ -28,6 +28,7 @@ import org.cactoos.Proc;
 import org.cactoos.Text;
 import org.cactoos.iterable.IterableOf;
 import org.cactoos.iterable.Mapped;
+import org.cactoos.text.FormattedText;
 
 /**
  * The envelope of {@link Std}.
@@ -52,6 +53,11 @@ public class Envelope implements Std {
     @Override
     public final void print(final String... msgs) {
         this.print(new Mapped<>(msg -> () -> msg, msgs));
+    }
+
+    @Override
+    public final void print(final String ptrn, final Object... args) {
+        this.print(new FormattedText(ptrn, args));
     }
 
     @Override

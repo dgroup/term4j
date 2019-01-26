@@ -29,7 +29,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
-import org.cactoos.text.FormattedText;
 import org.junit.Test;
 import org.llorllale.cactoos.matchers.Assertion;
 import org.llorllale.cactoos.matchers.HasLines;
@@ -56,7 +55,7 @@ public final class StdOfTest {
                     final Std std = new StdOf(ps);
                     std.print("line1", "line2");
                     std.print("line3", "line4");
-                    std.print(new FormattedText("line%s", 5));
+                    std.print("line%s", 5);
                 }
                 return new String(baos.toByteArray(), StandardCharsets.UTF_8);
             },

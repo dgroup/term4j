@@ -21,17 +21,20 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package io.github.dgroup.term4j.highlighted;
 
 /**
- * Term4j.
- *
- * <p>This is a collection of Java primitives designed in a rather
- * extreme object-objected manner in order to simplify the manipulations with
- * CLI terminal(s) for Java-based applications.</p>
+ * Unchecked exception during text highlighting.
  *
  * @since 0.1.0
- * @see <a href="https://github.com/dgroup/term4j">GitHub repository</a>
- * @todo #/DEV Help: simple mechanism to print the help info from the classpath
- *  resource.
  */
-package io.github.dgroup.term4j;
+public final class UncheckedHighlightingException extends RuntimeException {
+
+    /**
+     * Ctor.
+     * @param cause The root cause during highlighting procedure.
+     */
+    public UncheckedHighlightingException(final Exception cause) {
+        super(cause);
+    }
+}

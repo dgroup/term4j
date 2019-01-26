@@ -22,16 +22,28 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+package io.github.dgroup.term4j.highlighted;
+
+import io.github.dgroup.term4j.Highlighted;
+import org.hamcrest.core.IsEqual;
+import org.junit.Test;
+import org.llorllale.cactoos.matchers.Assertion;
+
 /**
- * Term4j.
- *
- * <p>This is a collection of Java primitives designed in a rather
- * extreme object-objected manner in order to simplify the manipulations with
- * CLI terminal(s) for Java-based applications.</p>
+ * Test case for {@link Envelope} which is {@link Highlighted}.
  *
  * @since 0.1.0
- * @see <a href="https://github.com/dgroup/term4j">GitHub repository</a>
- * @todo #/DEV Help: simple mechanism to print the help info from the classpath
- *  resource.
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
-package io.github.dgroup.term4j;
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+public final class EnvelopeTest {
+
+    @Test
+    public void equalTo() {
+        new Assertion<>(
+            "Two red texts are equal",
+            () -> new Red("Failed"),
+            new IsEqual<>(new Red("Failed"))
+        );
+    }
+}

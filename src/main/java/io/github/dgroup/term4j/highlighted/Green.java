@@ -21,17 +21,36 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package io.github.dgroup.term4j.highlighted;
+
+import org.cactoos.text.FormattedText;
+import org.fusesource.jansi.Ansi;
 
 /**
- * Term4j.
+ * Highlight the text using white color from <em>jansi</em> library.
  *
- * <p>This is a collection of Java primitives designed in a rather
- * extreme object-objected manner in order to simplify the manipulations with
- * CLI terminal(s) for Java-based applications.</p>
+ * @see Ansi.Color#GREEN
  *
  * @since 0.1.0
- * @see <a href="https://github.com/dgroup/term4j">GitHub repository</a>
- * @todo #/DEV Help: simple mechanism to print the help info from the classpath
- *  resource.
  */
-package io.github.dgroup.term4j;
+public final class Green extends Envelope {
+
+    /**
+     * Ctor.
+     * @param msg The original message.
+     */
+    public Green(final Object msg) {
+        super(msg, Ansi.Color.GREEN);
+    }
+
+    /**
+     * Ctor.
+     * @param ptrn The template where each {@code %s} symbol will be replaced
+     *  by the argument .
+     * @param args The arguments for template above.
+     */
+    public Green(final String ptrn, final Object... args) {
+        this(new FormattedText(ptrn, args));
+    }
+
+}
