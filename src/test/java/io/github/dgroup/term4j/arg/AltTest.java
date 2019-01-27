@@ -21,60 +21,38 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package io.github.dgroup.term4j.arg;
 
-import io.github.dgroup.term4j.Arg;
-import org.cactoos.Scalar;
-import org.cactoos.scalar.UncheckedScalar;
+import io.github.dgroup.term4j.arg.hamcrest.ArgHas;
+import org.junit.Test;
+import org.llorllale.cactoos.matchers.Assertion;
 
 /**
- * Argument that doesn't throw the checked {@link Exception}.
+ * Test case for {@link Alt}.
  *
- * @param <T> Type of command-line argument.
  * @since 0.1.0
+ * @checkstyle MagicNumberCheck (500 lines)
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
-public final class Unchecked<T> implements Arg<T> {
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+public final class AltTest {
 
-    /**
-     * Origin.
-     */
-    private final Scalar<Arg<T>> origin;
-
-    /**
-     * Ctor.
-     * @param arg Origin.
-     */
-    public Unchecked(final Arg<T> arg) {
-        this(() -> arg);
+    @Test
+    public void value() {
+        new Assertion<>(
+            "The alternative value ('5') was taken in case of exception",
+            () -> new Alt<>(
+                new Fake<>(
+                    "--threads",
+                    () -> {
+                        throw new ArgNotFoundException("--threads");
+                    },
+                    false
+                ),
+                5
+            ),
+            new ArgHas<>(5)
+        ).affirm();
     }
-
-    /**
-     * Ctor.
-     * @param arg Origin.
-     */
-    public Unchecked(final Scalar<Arg<T>> arg) {
-        this.origin = arg;
-    }
-
-    @Override
-    public String label() {
-        return new UncheckedScalar<>(this.origin).value().label();
-    }
-
-    @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public T value() {
-        // @checkstyle IllegalCatchCheck (5 lines)
-        try {
-            return this.origin.value().value();
-        } catch (final Exception exp) {
-            throw new UncheckedArgNotFoundException(exp);
-        }
-    }
-
-    @Override
-    public boolean specifiedByUser() {
-        return new UncheckedScalar<>(this.origin).value().specifiedByUser();
-    }
-
 }

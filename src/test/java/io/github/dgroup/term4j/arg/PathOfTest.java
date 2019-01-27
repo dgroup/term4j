@@ -26,7 +26,9 @@ package io.github.dgroup.term4j.arg;
 
 import org.cactoos.list.ListOf;
 import org.hamcrest.MatcherAssert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.llorllale.cactoos.matchers.IsTrue;
 
 /**
@@ -38,6 +40,12 @@ import org.llorllale.cactoos.matchers.IsTrue;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public final class PathOfTest {
 
+    /**
+     * The junit rule to catch and verify the exceptions during the unit tests.
+     */
+    @Rule
+    public final ExpectedException cause = ExpectedException.none();
+
     @Test
     public void value() throws ArgNotFoundException {
         MatcherAssert.assertThat(
@@ -46,5 +54,14 @@ public final class PathOfTest {
             ).value().toFile().exists(),
             new IsTrue()
         );
+    }
+
+    @Test
+    public void fileNotExists() throws ArgNotFoundException {
+        this.cause.expect(ArgNotFoundException.class);
+        this.cause.expectMessage("-r");
+        new PathOf(
+            "-r", new ListOf<>("-r", "absent.md")
+        ).value();
     }
 }

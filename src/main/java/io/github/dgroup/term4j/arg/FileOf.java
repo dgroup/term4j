@@ -24,57 +24,53 @@
 package io.github.dgroup.term4j.arg;
 
 import io.github.dgroup.term4j.Arg;
+import java.io.File;
+import java.util.List;
 import org.cactoos.Scalar;
-import org.cactoos.scalar.UncheckedScalar;
 
 /**
- * Argument that doesn't throw the checked {@link Exception}.
+ * The single file argument.
  *
- * @param <T> Type of command-line argument.
  * @since 0.1.0
  */
-public final class Unchecked<T> implements Arg<T> {
-
-    /**
-     * Origin.
-     */
-    private final Scalar<Arg<T>> origin;
+public final class FileOf extends Envelope<File> {
 
     /**
      * Ctor.
-     * @param arg Origin.
+     * @param lbl The label of command-line argument.
+     * @param args All command-line arguments.
      */
-    public Unchecked(final Arg<T> arg) {
-        this(() -> arg);
+    public FileOf(final String lbl, final List<String> args) {
+        this(new StringOf(lbl, args));
     }
 
     /**
      * Ctor.
-     * @param arg Origin.
+     * @param lbl The label of the command-line argument.
+     * @param path The path to the file.
      */
-    public Unchecked(final Scalar<Arg<T>> arg) {
-        this.origin = arg;
+    public FileOf(final String lbl, final Scalar<String> path) {
+        this(new ArgOf<>(() -> lbl, path));
     }
 
-    @Override
-    public String label() {
-        return new UncheckedScalar<>(this.origin).value().label();
-    }
-
-    @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public T value() {
-        // @checkstyle IllegalCatchCheck (5 lines)
-        try {
-            return this.origin.value().value();
-        } catch (final Exception exp) {
-            throw new UncheckedArgNotFoundException(exp);
-        }
-    }
-
-    @Override
-    public boolean specifiedByUser() {
-        return new UncheckedScalar<>(this.origin).value().specifiedByUser();
+    /**
+     * Ctor.
+     * @param src The argument with path to the file.
+     */
+    public FileOf(final Arg<String> src) {
+        super(new ArgOf<>(
+            src::label,
+            () -> {
+                final File path = new File(src.value());
+                if (!path.exists() || path.isDirectory()) {
+                    throw new ArgNotFoundException(
+                        "The file %s is absent or it is a folder", src.value()
+                    );
+                }
+                return path;
+            },
+            src::specifiedByUser
+        ));
     }
 
 }

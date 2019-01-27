@@ -23,8 +23,6 @@
  */
 package io.github.dgroup.term4j.arg;
 
-import io.github.dgroup.term4j.Arg;
-
 /**
  * The application property.
  *
@@ -42,29 +40,19 @@ public final class PropOf extends Envelope<String> {
      */
     public PropOf(final String property) {
         super(
-            // @checkstyle AnonInnerLengthCheck (25 lines)
-            () -> new Arg<String>() {
-
-                @Override
-                public String label() {
-                    return property;
-                }
-
-                @Override
-                public String value() throws ArgNotFoundException {
-                    if (!this.specifiedByUser()) {
+            new ArgOf<String>(
+                () -> property,
+                () -> {
+                    final String val = System.getProperty(property);
+                    if (val == null) {
                         throw new ArgNotFoundException(
                             "The '%s' property isn't set", property
                         );
                     }
-                    return System.getProperty(property);
-                }
-
-                @Override
-                public boolean specifiedByUser() {
-                    return System.getProperty(property) != null;
-                }
-            }
+                    return val;
+                },
+                () -> System.getProperty(property) != null
+            )
         );
     }
 }

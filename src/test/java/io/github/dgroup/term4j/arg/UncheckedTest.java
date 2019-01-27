@@ -60,7 +60,7 @@ public final class UncheckedTest {
         this.cause.expectMessage(
             "io.github.dgroup.term4j.arg.ArgNotFoundException: -f"
         );
-        this.cause.expect(IllegalStateException.class);
+        this.cause.expect(UncheckedArgNotFoundException.class);
         new Unchecked<>(
             new Fake<>(
                 "-f",

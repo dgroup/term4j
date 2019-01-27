@@ -23,8 +23,6 @@
  */
 package io.github.dgroup.term4j.arg;
 
-import io.github.dgroup.term4j.Arg;
-
 /**
  * The system environment variable.
  *
@@ -41,30 +39,20 @@ public final class EnvOf extends Envelope<String> {
      */
     public EnvOf(final String variable) {
         super(
-            // @checkstyle AnonInnerLengthCheck (25 lines)
-            () -> new Arg<String>() {
-
-                @Override
-                public String label() {
-                    return variable;
-                }
-
-                @Override
-                public String value() throws ArgNotFoundException {
-                    if (!this.specifiedByUser()) {
+            new ArgOf<>(
+                () -> variable,
+                () -> {
+                    final String val = System.getenv(variable);
+                    if (val == null) {
                         throw new ArgNotFoundException(
                             "The '%s' variable isn't set to the environment",
                             variable
                         );
                     }
-                    return System.getenv(variable);
-                }
-
-                @Override
-                public boolean specifiedByUser() {
-                    return System.getenv(variable) != null;
-                }
-            }
+                    return val;
+                },
+                () -> System.getenv(variable) != null
+            )
         );
     }
 }

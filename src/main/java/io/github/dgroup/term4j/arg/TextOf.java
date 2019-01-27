@@ -23,58 +23,35 @@
  */
 package io.github.dgroup.term4j.arg;
 
-import io.github.dgroup.term4j.Arg;
-import org.cactoos.Scalar;
-import org.cactoos.scalar.UncheckedScalar;
+import java.util.List;
+import org.cactoos.Text;
 
 /**
- * Argument that doesn't throw the checked {@link Exception}.
+ * The single text command-line argument.
  *
- * @param <T> Type of command-line argument.
  * @since 0.1.0
  */
-public final class Unchecked<T> implements Arg<T> {
-
-    /**
-     * Origin.
-     */
-    private final Scalar<Arg<T>> origin;
+public final class TextOf extends Envelope<Text> {
 
     /**
      * Ctor.
-     * @param arg Origin.
+     * @param lbl The label of command-line argument.
+     * @param args All command-line arguments.
      */
-    public Unchecked(final Arg<T> arg) {
-        this(() -> arg);
+    public TextOf(final String lbl, final List<String> args) {
+        super(lbl, args, arg -> () -> arg);
     }
 
     /**
      * Ctor.
-     * @param arg Origin.
+     * @param lbl The label of command-line argument.
+     * @param args All command-line arguments.
+     * @param msg Error message in case if arguments wasn't specified by user.
      */
-    public Unchecked(final Scalar<Arg<T>> arg) {
-        this.origin = arg;
-    }
-
-    @Override
-    public String label() {
-        return new UncheckedScalar<>(this.origin).value().label();
-    }
-
-    @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public T value() {
-        // @checkstyle IllegalCatchCheck (5 lines)
-        try {
-            return this.origin.value().value();
-        } catch (final Exception exp) {
-            throw new UncheckedArgNotFoundException(exp);
-        }
-    }
-
-    @Override
-    public boolean specifiedByUser() {
-        return new UncheckedScalar<>(this.origin).value().specifiedByUser();
+    public TextOf(
+        final String lbl, final List<String> args, final String msg
+    ) {
+        super(lbl, args, arg -> () -> arg, () -> msg);
     }
 
 }

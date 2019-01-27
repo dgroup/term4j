@@ -24,35 +24,55 @@
 
 package io.github.dgroup.term4j.arg;
 
-import io.github.dgroup.term4j.arg.hamcrest.ArgHas;
+import org.cactoos.list.ListOf;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.llorllale.cactoos.matchers.Assertion;
+import org.llorllale.cactoos.matchers.IsTrue;
 
 /**
- * Test case for {@link Alternative}.
+ * Test case for {@link FileOf}.
  *
  * @since 0.1.0
- * @checkstyle MagicNumberCheck (500 lines)
  * @checkstyle JavadocMethodCheck (500 lines)
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
-public final class AlternativeTest {
+public final class FileOfTest {
+
+    /**
+     * The junit rule to catch and verify the exceptions during the unit tests.
+     */
+    @Rule
+    public final ExpectedException cause = ExpectedException.none();
 
     @Test
-    public void value() {
+    public void cmdArgValue() {
         new Assertion<>(
-            "The alternative value ('5') was taken in case of exception",
-            () -> new Alternative<>(
-                new Fake<>(
-                    "--threads",
-                    () -> {
-                        throw new ArgNotFoundException("--threads");
-                    },
-                    false
-                ),
-                5
-            ),
-            new ArgHas<>(5)
+            "The ctor for the command-line arguments detects the file",
+            () -> new FileOf(
+                "-f", new ListOf<>("-f", "readme.md")
+            ).value().exists(),
+            new IsTrue()
         ).affirm();
+    }
+
+    @Test
+    public void argValue() {
+        new Assertion<>(
+            "The ctor for the Scalar<String> detects the file",
+            () -> new FileOf("-f", () -> "readme.md").value()
+                .exists(),
+            new IsTrue()
+        ).affirm();
+    }
+
+    @Test
+    public void fileNotExists() throws ArgNotFoundException {
+        this.cause.expect(ArgNotFoundException.class);
+        this.cause.expectMessage("-r");
+        new FileOf(
+            "-r", new ListOf<>("-r", "absent.md")
+        ).value();
     }
 }

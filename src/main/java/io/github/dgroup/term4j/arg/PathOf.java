@@ -23,6 +23,7 @@
  */
 package io.github.dgroup.term4j.arg;
 
+import io.github.dgroup.term4j.Arg;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -40,7 +41,27 @@ public final class PathOf extends Envelope<Path> {
      * @param args All command-line arguments.
      */
     public PathOf(final String lbl, final List<String> args) {
-        super(lbl, args, arg -> Paths.get(arg));
+        this(new StringOf(lbl, args));
+    }
+
+    /**
+     * Ctor.
+     * @param src The argument with path to the file.
+     */
+    public PathOf(final Arg<String> src) {
+        super(new ArgOf<>(
+            src::label,
+            () -> {
+                final Path path = Paths.get(src.value());
+                if (!path.toFile().exists() || path.toFile().isDirectory()) {
+                    throw new ArgNotFoundException(
+                        "The file %s is absent or it is a folder", src.value()
+                    );
+                }
+                return path;
+            },
+            src::specifiedByUser
+        ));
     }
 
 }

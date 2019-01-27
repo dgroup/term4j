@@ -23,7 +23,7 @@
  */
 package io.github.dgroup.term4j.arg.scalar;
 
-import io.github.dgroup.term4j.arg.ArgOf;
+import io.github.dgroup.term4j.arg.StringOf;
 import org.cactoos.list.ListOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsNot;
@@ -31,7 +31,7 @@ import org.junit.Test;
 import org.llorllale.cactoos.matchers.IsTrue;
 
 /**
- * Unit tests for class {@link ArgOf}.
+ * Unit tests for class {@link StringOf}.
  *
  * @since 0.1.0
  * @checkstyle JavadocMethodCheck (500 lines)
@@ -43,7 +43,7 @@ public final class ArgAtTest {
     @Test
     public void specified() {
         MatcherAssert.assertThat(
-            new ArgOf(
+            new StringOf(
                 "-o",
                 new ListOf<>("-o", "std"),
                 "Argument `-o` wasn't found"
@@ -55,7 +55,7 @@ public final class ArgAtTest {
     @Test
     public void notSpecified() {
         MatcherAssert.assertThat(
-            new ArgOf(
+            new StringOf(
                 "-o",
                 new ListOf<>(
                     "-f", "single-test.yml",

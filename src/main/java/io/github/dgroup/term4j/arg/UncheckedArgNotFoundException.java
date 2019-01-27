@@ -23,58 +23,20 @@
  */
 package io.github.dgroup.term4j.arg;
 
-import io.github.dgroup.term4j.Arg;
-import org.cactoos.Scalar;
-import org.cactoos.scalar.UncheckedScalar;
-
 /**
- * Argument that doesn't throw the checked {@link Exception}.
+ * Thrown in case if command-line argument is required, but not found within
+ *  the arguments specified by the user.
  *
- * @param <T> Type of command-line argument.
  * @since 0.1.0
  */
-public final class Unchecked<T> implements Arg<T> {
-
-    /**
-     * Origin.
-     */
-    private final Scalar<Arg<T>> origin;
+public class UncheckedArgNotFoundException extends RuntimeException {
 
     /**
      * Ctor.
-     * @param arg Origin.
+     * @param cause Origin.
      */
-    public Unchecked(final Arg<T> arg) {
-        this(() -> arg);
-    }
-
-    /**
-     * Ctor.
-     * @param arg Origin.
-     */
-    public Unchecked(final Scalar<Arg<T>> arg) {
-        this.origin = arg;
-    }
-
-    @Override
-    public String label() {
-        return new UncheckedScalar<>(this.origin).value().label();
-    }
-
-    @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public T value() {
-        // @checkstyle IllegalCatchCheck (5 lines)
-        try {
-            return this.origin.value().value();
-        } catch (final Exception exp) {
-            throw new UncheckedArgNotFoundException(exp);
-        }
-    }
-
-    @Override
-    public boolean specifiedByUser() {
-        return new UncheckedScalar<>(this.origin).value().specifiedByUser();
+    public UncheckedArgNotFoundException(final Exception cause) {
+        super(cause);
     }
 
 }

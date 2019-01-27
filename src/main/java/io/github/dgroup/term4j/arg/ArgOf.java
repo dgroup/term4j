@@ -23,32 +23,86 @@
  */
 package io.github.dgroup.term4j.arg;
 
-import java.util.List;
+import io.github.dgroup.term4j.Arg;
+import org.cactoos.Scalar;
+import org.cactoos.scalar.StickyScalar;
+import org.cactoos.scalar.True;
+import org.cactoos.scalar.UncheckedScalar;
 
 /**
- * The single string command-line argument.
+ * The single argument.
+ *
+ * @param <X> The type of the argument.
  *
  * @since 0.1.0
  */
-public final class ArgOf extends Envelope<String> {
+public final class ArgOf<X> implements Arg<X> {
+
+    /**
+     * The label of command-line argument.
+     */
+    private final Scalar<String> lbl;
+
+    /**
+     * The value of command-line argument.
+     */
+    private final Scalar<X> val;
+
+    /**
+     * The presence of the argument's value.
+     */
+    private final Scalar<Boolean> spc;
 
     /**
      * Ctor.
      * @param lbl The label of command-line argument.
-     * @param args All command-line arguments.
+     * @param val The value of command-line argument.
      */
-    public ArgOf(final String lbl, final List<String> args) {
-        super(lbl, args, arg -> arg);
+    public ArgOf(final String lbl, final X val) {
+        this(() -> lbl, () -> val);
     }
 
     /**
      * Ctor.
      * @param lbl The label of command-line argument.
-     * @param args All command-line arguments.
-     * @param msg Error message in case if arguments wasn't specified by user.
+     * @param val The value of command-line argument.
      */
-    public ArgOf(final String lbl, final List<String> args, final String msg) {
-        super(lbl, args, arg -> arg, () -> msg);
+    public ArgOf(final Scalar<String> lbl, final Scalar<X> val) {
+        this(lbl, val, new True());
     }
 
+    /**
+     * Ctor.
+     * @param lbl The label of command-line argument.
+     * @param val The value of command-line argument.
+     * @param spc The presence of the argument's value.
+     */
+    public ArgOf(
+        final Scalar<String> lbl, final Scalar<X> val, final Scalar<Boolean> spc
+    ) {
+        this.lbl = new StickyScalar<>(lbl);
+        this.val = new StickyScalar<>(val);
+        this.spc = new StickyScalar<>(spc);
+    }
+
+    @Override
+    public String label() {
+        return new UncheckedScalar<>(this.lbl).value();
+    }
+
+    @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public X value() throws ArgNotFoundException {
+        try {
+            return this.val.value();
+            // @checkstyle IllegalCatchCheck (3 lines)
+        } catch (final Exception cause) {
+            throw new ArgNotFoundException(cause);
+        }
+    }
+
+    @Override
+    public boolean specifiedByUser() {
+        return new UncheckedScalar<>(this.spc).value();
+    }
 }

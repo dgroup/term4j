@@ -46,7 +46,7 @@ public class Envelope<X> implements Arg<X> {
     /**
      * Origin.
      */
-    private final UncheckedScalar<Arg<X>> origin;
+    private final Scalar<Arg<X>> origin;
 
     /**
      * Ctor.
@@ -76,30 +76,28 @@ public class Envelope<X> implements Arg<X> {
         final Text err
     ) {
         this(
-            new StickyScalar<>(
-                () -> new Mapped<>(
-                    fnc,
-                    new Arg<String>() {
+            new Mapped<>(
+                fnc,
+                new Arg<String>() {
 
-                        @Override
-                        public String label() {
-                            return label;
-                        }
-
-                        @Override
-                        public String value() throws ArgNotFoundException {
-                            if (!this.specifiedByUser()) {
-                                throw new ArgNotFoundException(err);
-                            }
-                            return new ArgAt(label, args).value();
-                        }
-
-                        @Override
-                        public boolean specifiedByUser() {
-                            return new ArgIn(label, args).value();
-                        }
+                    @Override
+                    public String label() {
+                        return label;
                     }
-                )
+
+                    @Override
+                    public String value() throws ArgNotFoundException {
+                        if (!this.specifiedByUser()) {
+                            throw new ArgNotFoundException(err);
+                        }
+                        return new ArgAt(label, args).value();
+                    }
+
+                    @Override
+                    public boolean specifiedByUser() {
+                        return new ArgIn(label, args).value();
+                    }
+                }
             )
         );
     }
@@ -108,23 +106,29 @@ public class Envelope<X> implements Arg<X> {
      * Ctor.
      * @param origin Origin.
      */
-    public Envelope(final Scalar<Arg<X>> origin) {
-        this.origin = new UncheckedScalar<>(origin);
+    public Envelope(final Arg<X> origin) {
+        this.origin = new StickyScalar<>(() -> origin);
     }
 
     @Override
     public final String label() {
-        return this.origin.value().label();
+        return new UncheckedScalar<>(this.origin).value().label();
     }
 
     @Override
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public final X value() throws ArgNotFoundException {
-        return this.origin.value().value();
+        try {
+            return this.origin.value().value();
+            // @checkstyle IllegalCatchCheck (3 lines)
+        } catch (final Exception cause) {
+            throw new ArgNotFoundException(this.label(), cause);
+        }
     }
 
     @Override
     public final boolean specifiedByUser() {
-        return this.origin.value().specifiedByUser();
+        return new UncheckedScalar<>(this.origin).value().specifiedByUser();
     }
 
 }
