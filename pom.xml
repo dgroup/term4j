@@ -361,7 +361,7 @@
       </build>
     </profile>
     <profile>
-      <id>ossrh</id>
+      <id>ossrh-term4j</id>
       <build>
         <plugins>
           <plugin>
