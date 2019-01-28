@@ -4,7 +4,7 @@ architect:
 readers:
   - "urn:github:1651114"
 
-assets:
+decrypt:
   settings.xml: "dgroup/ossrh#settings.xml.asc"
   pubring.kbx:  "dgroup/ossrh#1B112A24-term4j-pubring.kbx.asc"
 
