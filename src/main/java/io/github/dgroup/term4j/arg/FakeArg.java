@@ -33,7 +33,7 @@ import org.cactoos.scalar.UncheckedScalar;
  * @param <X> Type of item.
  * @since 0.1.0
  */
-public final class Fake<X> implements Arg<X> {
+public final class FakeArg<X> implements Arg<X> {
 
     /**
      * The label of the command-line argument.
@@ -58,7 +58,7 @@ public final class Fake<X> implements Arg<X> {
      * @param lbl The label of the command-line argument.
      * @param val The value of the command-line argument.
      */
-    public Fake(final String lbl, final X val) {
+    public FakeArg(final String lbl, final X val) {
         this(lbl, () -> val);
     }
 
@@ -67,7 +67,7 @@ public final class Fake<X> implements Arg<X> {
      * @param lbl The label of the command-line argument.
      * @param val The value of the command-line argument.
      */
-    public Fake(final String lbl, final Scalar<X> val) {
+    public FakeArg(final String lbl, final Scalar<X> val) {
         this(lbl, val, true);
     }
 
@@ -77,7 +77,7 @@ public final class Fake<X> implements Arg<X> {
      * @param val The value of the command-line argument.
      * @param spcfd The presence of the argument's value.
      */
-    public Fake(final String lbl, final X val, final boolean spcfd) {
+    public FakeArg(final String lbl, final X val, final boolean spcfd) {
         this(lbl, () -> val, spcfd);
     }
 
@@ -87,7 +87,7 @@ public final class Fake<X> implements Arg<X> {
      * @param val The value of the command-line argument.
      * @param spcfd The presence of the argument's value.
      */
-    public Fake(final String lbl, final Scalar<X> val, final boolean spcfd) {
+    public FakeArg(final String lbl, final Scalar<X> val, final boolean spcfd) {
         this.lbl = lbl;
         this.val = val;
         this.specified = spcfd;

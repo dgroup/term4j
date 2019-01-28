@@ -29,9 +29,8 @@ import io.github.dgroup.term4j.Runtime;
  * Fake implementation of {@link Runtime} for unit-testing purposes.
  *
  * @since 0.1.0
- * @todo #/DEV Rename fakes considering type
  */
-public final class Fake implements Runtime {
+public final class FakeRuntime implements Runtime {
 
     /**
      * Application exit code.
