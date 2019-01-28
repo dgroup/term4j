@@ -37,21 +37,21 @@ Get the latest version [here](https://github.com/dgroup/term4j/releases):
 
 Java version required: 1.8+.
 
-Interface       | Purpose                                                               | Implementations
-----------------|-----------------------------------------------------------------------|-------------------------------------------------
-[Arg\<T>]()     | Allows to fetch the application arguments                             | [StringOf](), [NumberOf](), [PathOf](), [FileOf](), [EnvOf](), [PropOf](), [Alt](), [Unchecked](), [etc]() |
-[Std]()         | Wrap the raw manipulation with `std out`                              | [StdOf](), [Inmem](), [etc]()
-[Highlighted]() | The colored extension of [Text](https://goo.gl/2ZYC83) for `std out`  | [Green](), [Red](), [Yellow](), [etc]()
-[Runtime]()     | Wrap the raw manipulation with JVM runtime                            | [RuntimeOf](), [FakeRuntime]()
+Interface                   | Purpose                                                               | Implementations / Related
+----------------------------|-----------------------------------------------------------------------|-------------------------------------------------
+[Arg\<T>](#argt)            | Allows to fetch the application arguments                             | [StringOf](#stringof--textof), [NumberOf](#numberof), [PathOf](), [FileOf](), [EnvOf](#envof), [PropOf](#propof), [Alt](#alt), [Unchecked](), [etc](src/main/java/io/github/dgroup/term4j/arg/) |
+[Std](#std)                 | Wrap the raw manipulation with `std out`                              | [StdOf](#stdof), [Inmem](), [etc](src/main/java/io/github/dgroup/term4j/std)
+[Highlighted](#highlighted) | The colored extension of [Text](https://goo.gl/2ZYC83) for `std out`  | [Green](src/main/java/io/github/dgroup/term4j/highlighted/Green.java), [Red](src/main/java/io/github/dgroup/term4j/highlighted/Red.java), [Yellow](src/main/java/io/github/dgroup/term4j/highlighted/Yellow.java), [etc](src/main/java/io/github/dgroup/term4j/highlighted)
+[Runtime](#runtimeof)       | Wrap the raw manipulation with JVM runtime                            | [RuntimeOf](src/main/java/io/github/dgroup/term4j/runtime/RuntimeOf.java), [FakeRuntime](src/main/java/io/github/dgroup/term4j/runtime/FakeRuntime.java), [AppException](src/main/java/io/github/dgroup/term4j/AppException.java), [etc](src/main/java/io/github/dgroup/term4j/runtime)
 
 All examples below are using the following frameworks/libs:
  - [Hamcrest](https://github.com/hamcrest/JavaHamcrest) - Library of matchers, which can be combined in to create flexible expressions of intent in tests.
  - [cactoos](https://github.com/yegor256/cactoos) - Object-Oriented Java primitives, as an alternative to Google Guava and Apache Commons.
  - [cactoos-matchers](https://github.com/yegor256/cactoos) - Object-Oriented Hamcrest matchers
 
-### [Arg\<T>](./src/main/java/io/github/dgroup/term4j/Arg.java)
-#### [StringOf](./src/main/java/io/github/dgroup/term4j/arg/StringOf.java) / [TextOf](./src/main/java/io/github/dgroup/term4j/arg/TextOf.java)
-Fetch the string/[Text](https://github.com/yegor256/cactoos/blob/master/src/main/java/org/cactoos/Text.java) argument:
+### [Arg\<T>](src/main/java/io/github/dgroup/term4j/Arg.java)
+#### [StringOf](src/main/java/io/github/dgroup/term4j/arg/StringOf.java) / [TextOf](src/main/java/io/github/dgroup/term4j/arg/TextOf.java)
+Fetch the string/[Text](https://goo.gl/2ZYC83) argument:
 ```bash
 $ java -jar app.jar --key vOIkv7mzQV2UkV1
 ```
@@ -67,7 +67,7 @@ public static void main(String[] cargs) {
     final Arg<String> key = new StringOf("--key", args);
 }
 ```
-#### [NumberOf]()
+#### [NumberOf](src/main/java/io/github/dgroup/term4j/arg/NumberOf.java)
 Fetch the numeric argument:
 ```bash
 $ java -jar app.jar -t 10
@@ -84,7 +84,7 @@ public static void main(String[] cargs) throws ArgNotFoundException {
     final int threads = new NumberOf("-t", args).toInt();
 }
 ```
-#### [PathOf]() / [FileOf]()
+#### [PathOf](src/main/java/io/github/dgroup/term4j/arg/PathOf.java) / [FileOf](src/main/java/io/github/dgroup/term4j/arg/FileOf.java)
 Fetch the argument as a `java.nio.file.Path` or `java.io.File`:
 ```bash
 $ java -jar app.jar -f ./readme.md
@@ -101,7 +101,7 @@ public static void main(String[] cargs) throws ArgNotFoundException {
     final Arg<Path> src = new PathOf("-f", args);
 }
 ```
-#### [EnvOf]()
+#### [EnvOf](src/main/java/io/github/dgroup/term4j/arg/EnvOf.java)
 Fetch the environment variable:
 ```bash
 $ echo $JAVA_HOME
@@ -119,7 +119,7 @@ public static void main(String[] cargs) throws ArgNotFoundException {
     final Arg<String> jhome = new EnvOf("JAVA_HOME");
 }
 ```
-#### [PropOf]()
+#### [PropOf](src/main/java/io/github/dgroup/term4j/arg/PropOf.java)
 Fetch the application property:
 ```bash
 $ java -Dlevel=debug -jar app.jar
@@ -136,7 +136,7 @@ public static void main(String[] cargs) throws ArgNotFoundException {
     final Arg<String> verbose = new PropOf("level");
 }
 ```
-#### [Alt]()
+#### [Alt](src/main/java/io/github/dgroup/term4j/arg/Alt.java)
 The alternative value in case if the argument wasn't specified:
 ```bash
 $ java -jar app.jar
@@ -158,8 +158,8 @@ public static void main(String[] cargs) {
     );
 }
 ```
-### [Std]()
-#### [StdOf]()
+### [Std](src/main/java/io/github/dgroup/term4j/Std.java)
+#### [StdOf](src/main/java/io/github/dgroup/term4j/std/StdOf.java)
 Wrap the std out, for example for unit testing purposes:
 ```java
     /**
@@ -190,5 +190,19 @@ public static void main(String[] cargs) {
     );
 }
 ```
+<img src=".docs/highlighted-red-green.png" height=40% width=40% alt='Colored message'/>
 
-<img src=".docs/highlighted-red-green.png" height=25px width=80px alt='Colored message'/>
+See [more](src/main/java/io/github/dgroup/term4j/highlighted/).
+### RuntimeOf
+Exit from application using particular exit code:
+```java
+public static void main(String[] cargs) {
+    try {
+        // application exception happens
+    } catch (final AppException cause) {
+        new RuntimeOf().shutdownWith(
+            cause.exitCode()
+        );
+    }
+}
+```
