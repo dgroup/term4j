@@ -69,7 +69,7 @@ public final class StdOfTest {
     @Test
     public void printToWriter() {
         new Assertion<>(
-            "5 lines of text were printed to the output",
+            "4 lines of text were printed to the output",
             () -> {
                 final StringWriter swter = new StringWriter();
                 final Std std = new StdOf(swter);

@@ -30,8 +30,6 @@ import org.cactoos.Text;
  * Standard output for application progress.
  *
  * @since 0.1.0
- * @todo #/DEV Fill 'Get started' section in readme.md:
- *  "How to manipulate with cli std output within the unit tests".
  */
 public interface Std {
 

@@ -30,8 +30,6 @@ import io.github.dgroup.term4j.arg.ArgNotFoundException;
  *
  * @param <X> Type of item.
  * @since 0.1.0
- * @todo #/DEV Fill 'Get started' section in readme.md:
- *  "How to manipulate with cli arguments".
  */
 public interface Arg<X> {
 

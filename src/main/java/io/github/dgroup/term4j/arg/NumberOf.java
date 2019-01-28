@@ -40,4 +40,24 @@ public final class NumberOf extends Envelope<Number> {
     public NumberOf(final String lbl, final List<String> args) {
         super(lbl, args, Double::parseDouble);
     }
+
+    /**
+     * The {@link Integer} value of the argument.
+     * @return The value.
+     * @throws ArgNotFoundException in case if the argument wasn't
+     *  specified by the user or arguments itself are empty.
+     */
+    public int toInt() throws ArgNotFoundException {
+        return this.value().intValue();
+    }
+
+    /**
+     * The {@link Long} value of the argument.
+     * @return The value.
+     * @throws ArgNotFoundException in case if the argument wasn't
+     *  specified by the user or arguments itself are empty.
+     */
+    public long toLong() throws ArgNotFoundException {
+        return this.value().longValue();
+    }
 }
