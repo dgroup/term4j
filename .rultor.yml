@@ -5,8 +5,8 @@ readers:
   - "urn:github:1651114"
 
 decrypt:
-  settings.xml: "repo/dgroup/ossrh#settings.xml.asc"
-  pubring.kbx:  "repo/dgroup/ossrh#1B112A24-term4j-pubring.kbx.asc"
+  settings.xml: "dgroup/ossrh/settings.xml.asc"
+  pubring.kbx:  "dgroup/ossrh/1B112A24-term4j-pubring.kbx.asc"
 
 merge:
   env:
