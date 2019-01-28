@@ -24,7 +24,7 @@
 
 package io.github.dgroup.term4j.arg.hamcrest;
 
-import io.github.dgroup.term4j.arg.Fake;
+import io.github.dgroup.term4j.arg.FakeArg;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
@@ -42,7 +42,7 @@ public final class ArgHasTest {
     @Test
     public void matches() {
         MatcherAssert.assertThat(
-            new Fake<>("-f", "test.yml"),
+            new FakeArg<>("-f", "test.yml"),
             new ArgHas<>("test.yml")
         );
     }

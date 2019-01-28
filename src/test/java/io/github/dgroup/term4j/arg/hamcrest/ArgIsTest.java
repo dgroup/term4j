@@ -24,7 +24,7 @@
 
 package io.github.dgroup.term4j.arg.hamcrest;
 
-import io.github.dgroup.term4j.arg.Fake;
+import io.github.dgroup.term4j.arg.FakeArg;
 import org.hamcrest.MatcherAssert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -58,7 +58,7 @@ public final class ArgIsTest {
             "     but: label was \"-t\", value was <5>, presence was <true>"
         );
         MatcherAssert.assertThat(
-            new Fake<>("-t", 5, true),
+            new FakeArg<>("-t", 5, true),
             new ArgIs<>("-t", 8)
         );
     }

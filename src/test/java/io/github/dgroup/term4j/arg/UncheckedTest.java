@@ -49,7 +49,7 @@ public final class UncheckedTest {
         new Assertion<>(
             "argument must match",
             () -> new Unchecked<>(
-                new Fake<>("-f", "test.yml")
+                new FakeArg<>("-f", "test.yml")
             ),
             new ArgIs<>("-f", "test.yml")
         ).affirm();
@@ -62,7 +62,7 @@ public final class UncheckedTest {
         );
         this.cause.expect(UncheckedArgNotFoundException.class);
         new Unchecked<>(
-            new Fake<>(
+            new FakeArg<>(
                 "-f",
                 () -> {
                     throw new ArgNotFoundException("-f");
