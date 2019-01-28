@@ -6,7 +6,8 @@ readers:
 
 assets:
   settings.xml: "dgroup/ossrh#settings.xml"
-  pubring.kbx:  "dgroup/ossrh#1B112A24-term4j-pubring.kbx"
+  pubring.gpg:  "dgroup/ossrh#1B112A24-term4j-pubring.gpg"
+  secring.gpg:  "dgroup/ossrh#1B112A24-term4j-secring.gpg"
 
 merge:
   env:
