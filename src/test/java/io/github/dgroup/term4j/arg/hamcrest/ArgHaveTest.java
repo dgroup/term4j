@@ -24,7 +24,7 @@
 
 package io.github.dgroup.term4j.arg.hamcrest;
 
-import io.github.dgroup.term4j.arg.Fake;
+import io.github.dgroup.term4j.arg.FakeArg;
 import org.cactoos.iterable.IterableOf;
 import org.hamcrest.MatcherAssert;
 import org.junit.Rule;
@@ -53,7 +53,7 @@ public final class ArgHaveTest {
     public void matches() {
         new Assertion<>(
             "argument has proper multiple values",
-            () -> new Fake<>("--admin", new IterableOf<>("Tom", "Alex")),
+            () -> new FakeArg<>("--admin", new IterableOf<>("Tom", "Alex")),
             new ArgHave<>("Tom", "Alex")
         );
     }
@@ -67,7 +67,7 @@ public final class ArgHaveTest {
         this.cause.expectMessage("Expected: <Mike>");
         this.cause.expectMessage("     but: <Tom, Alex>");
         MatcherAssert.assertThat(
-            new Fake<>("--admin", new IterableOf<>("Tom", "Alex")),
+            new FakeArg<>("--admin", new IterableOf<>("Tom", "Alex")),
             new ArgHave<>("Mike")
         );
     }

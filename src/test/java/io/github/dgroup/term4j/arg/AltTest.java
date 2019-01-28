@@ -43,7 +43,7 @@ public final class AltTest {
         new Assertion<>(
             "The alternative value ('5') was taken in case of exception",
             () -> new Alt<>(
-                new Fake<>(
+                new FakeArg<>(
                     "--threads",
                     () -> {
                         throw new ArgNotFoundException("--threads");
