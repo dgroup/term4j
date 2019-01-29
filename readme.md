@@ -15,7 +15,7 @@
 [![Qulice](https://img.shields.io/badge/qulice-passed-blue.svg)](http://www.qulice.com/)
 [![SQ maintainability](https://sonarcloud.io/api/project_badges/measure?project=io.github.dgroup%3Aterm4j&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=io.github.dgroup%3Aterm4j)
 [![Codebeat](https://codebeat.co/badges/f61cb4a4-660f-4149-bbc6-8b66fec90941)](https://codebeat.co/projects/github-com-dgroup-term4j-master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/011685357fc44898a8538d3e51d8da70)](https://www.codacy.com/app/dgroup/term4j?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dgroup/term4j&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e72eb423424b4b6db9ba64aa97463206)](https://www.codacy.com/app/dgroup/term4j?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dgroup/term4j&amp;utm_campaign=Badge_Grade)
 [![Codecov](https://codecov.io/gh/dgroup/term4j/branch/master/graph/badge.svg?token=Pqdeao3teI)](https://codecov.io/gh/dgroup/term4j)
 
 ## What it is
