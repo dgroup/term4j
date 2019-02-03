@@ -34,7 +34,7 @@ import org.cactoos.collection.Mapped;
  *
  * @since 0.1.0
  */
-public final class Inmem extends Envelope {
+public final class Inmem extends StdEnvelope {
 
     /**
      * The lines printed to the STD output.

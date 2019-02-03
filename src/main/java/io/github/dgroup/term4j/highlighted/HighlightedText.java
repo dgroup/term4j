@@ -33,11 +33,14 @@ import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.Ansi.Color;
 
 /**
- * The envelope for {@link Highlighted}.
+ * The highlighted text.
+ *
+ * @see Highlighted
+ * @see Text
  *
  * @since 0.1.0
  */
-public class Envelope implements Highlighted, Comparable<Text> {
+public class HighlightedText implements Highlighted, Comparable<Text> {
 
     /**
      * Origin.
@@ -49,7 +52,7 @@ public class Envelope implements Highlighted, Comparable<Text> {
      * @param msg Message which should be highlighted.
      * @param color Color which should be used for highlighting.
      */
-    public Envelope(final Object msg, final Color color) {
+    public HighlightedText(final Object msg, final Color color) {
         this(msg, ansi -> ansi.fgBright(color));
     }
 
@@ -58,7 +61,7 @@ public class Envelope implements Highlighted, Comparable<Text> {
      * @param msg Message which should be highlighted.
      * @param fnc The function to
      */
-    public Envelope(final Object msg, final Func<Ansi, Ansi> fnc) {
+    public HighlightedText(final Object msg, final Func<Ansi, Ansi> fnc) {
         this(() -> () -> fnc.apply(Ansi.ansi()).a(msg).reset().toString());
     }
 
@@ -66,7 +69,7 @@ public class Envelope implements Highlighted, Comparable<Text> {
      * Ctor.
      * @param msg The original message.
      */
-    public Envelope(final Scalar<Text> msg) {
+    public HighlightedText(final Scalar<Text> msg) {
         this.msg = msg;
     }
 

@@ -33,7 +33,7 @@ import java.util.List;
  *
  * @since 0.1.0
  */
-public final class PathOf extends Envelope<Path> {
+public final class PathOf extends ArgEnvelope<Path> {
 
     /**
      * Ctor.

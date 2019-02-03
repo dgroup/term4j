@@ -33,7 +33,6 @@ import org.cactoos.scalar.UncheckedScalar;
  * The system environment.
  *
  * @since 0.1.0
- * @todo #/DEV Rename Envelopes considering their types.
  */
 public final class Envs implements Scalar<Properties> {
 

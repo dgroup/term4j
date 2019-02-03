@@ -30,7 +30,7 @@ import java.util.List;
  *
  * @since 0.1.0
  */
-public final class StringOf extends Envelope<String> {
+public final class StringOf extends ArgEnvelope<String> {
 
     /**
      * Ctor.
