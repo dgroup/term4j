@@ -35,7 +35,7 @@ import org.cactoos.text.FormattedText;
  *
  * @since 0.1.0
  */
-public class Envelope implements Std {
+public class StdEnvelope implements Std {
 
     /**
      * The procedure to print the text to the standart output.
@@ -46,7 +46,7 @@ public class Envelope implements Std {
      * Ctor.
      * @param prc The procedure to print the text to the standart output.
      */
-    public Envelope(final Proc<Iterable<Text>> prc) {
+    public StdEnvelope(final Proc<Iterable<Text>> prc) {
         this.prc = prc;
     }
 

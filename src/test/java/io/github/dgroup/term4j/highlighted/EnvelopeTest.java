@@ -30,7 +30,7 @@ import org.junit.Test;
 import org.llorllale.cactoos.matchers.Assertion;
 
 /**
- * Test case for {@link Envelope} which is {@link Highlighted}.
+ * Test case for {@link HighlightedText} which is {@link Highlighted}.
  *
  * @since 0.1.0
  * @checkstyle JavadocMethodCheck (500 lines)

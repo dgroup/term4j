@@ -32,7 +32,7 @@ import org.fusesource.jansi.Ansi;
  *
  * @since 0.1.0
  */
-public final class Blue extends Envelope {
+public final class Blue extends HighlightedText {
 
     /**
      * Ctor.

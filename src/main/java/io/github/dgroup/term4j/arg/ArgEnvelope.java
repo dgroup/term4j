@@ -41,7 +41,7 @@ import org.cactoos.text.FormattedText;
  * @since 0.1.0
  * @checkstyle ClassDataAbstractionCouplingCheck (200 lines)
  */
-public class Envelope<X> implements Arg<X> {
+public class ArgEnvelope<X> implements Arg<X> {
 
     /**
      * Origin.
@@ -54,7 +54,7 @@ public class Envelope<X> implements Arg<X> {
      * @param args All command-line arguments.
      * @param fnc To convert string argument value to instance of {@code <X>}.
      */
-    public Envelope(
+    public ArgEnvelope(
         final String label, final List<String> args, final Func<String, X> fnc
     ) {
         this(
@@ -71,7 +71,7 @@ public class Envelope<X> implements Arg<X> {
      * @param err Error message in case if argument is absent/missing.
      * @checkstyle ParameterNumberCheck (5 lines)
      */
-    public Envelope(
+    public ArgEnvelope(
         final String label, final List<String> args, final Func<String, X> fnc,
         final Text err
     ) {
@@ -106,7 +106,7 @@ public class Envelope<X> implements Arg<X> {
      * Ctor.
      * @param origin Origin.
      */
-    public Envelope(final Arg<X> origin) {
+    public ArgEnvelope(final Arg<X> origin) {
         this.origin = new StickyScalar<>(() -> origin);
     }
 

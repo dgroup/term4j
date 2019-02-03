@@ -31,7 +31,7 @@ package io.github.dgroup.term4j.arg;
  *
  * @since 0.1.0
  */
-public final class PropOf extends Envelope<String> {
+public final class PropOf extends ArgEnvelope<String> {
 
     /**
      * Ctor.

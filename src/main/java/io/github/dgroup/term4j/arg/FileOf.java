@@ -33,7 +33,7 @@ import org.cactoos.Scalar;
  *
  * @since 0.1.0
  */
-public final class FileOf extends Envelope<File> {
+public final class FileOf extends ArgEnvelope<File> {
 
     /**
      * Ctor.

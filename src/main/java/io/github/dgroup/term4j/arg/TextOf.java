@@ -31,7 +31,7 @@ import org.cactoos.Text;
  *
  * @since 0.1.0
  */
-public final class TextOf extends Envelope<Text> {
+public final class TextOf extends ArgEnvelope<Text> {
 
     /**
      * Ctor.

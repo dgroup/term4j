@@ -34,7 +34,7 @@ import org.cactoos.scalar.And;
  *
  * @since 0.1.0
  */
-public final class StdOf extends Envelope {
+public final class StdOf extends StdEnvelope {
 
     /**
      * The indent from the left side for more fancy/readable messages.

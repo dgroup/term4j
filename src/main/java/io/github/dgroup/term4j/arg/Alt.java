@@ -32,7 +32,7 @@ import org.cactoos.Scalar;
  * @param <X> Type of command-line argument.
  * @since 0.1.0
  */
-public final class Alt<X> extends Envelope<X> {
+public final class Alt<X> extends ArgEnvelope<X> {
 
     /**
      * Ctor.

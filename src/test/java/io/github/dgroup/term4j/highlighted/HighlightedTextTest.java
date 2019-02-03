@@ -21,25 +21,53 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package io.github.dgroup.term4j.highlighted;
 
 import org.fusesource.jansi.Ansi;
+import org.hamcrest.core.IsEqual;
+import org.junit.Test;
+import org.llorllale.cactoos.matchers.Assertion;
+import org.llorllale.cactoos.matchers.IsTrue;
 
 /**
- * Highlight the text using black color from <em>jansi</em> library.
+ * Test case for {@link HighlightedText}.
  *
- * @see Ansi.Color#BLACK
- *
- * @since 0.1.0
+ * @since 0.2.0
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
-public final class Black extends HighlightedText {
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+public final class HighlightedTextTest {
 
-    /**
-     * Ctor.
-     * @param msg The original message.
-     */
-    public Black(final Object msg) {
-        super(msg, Ansi.Color.BLACK);
+    @Test
+    public void hashcode() {
+        new Assertion<>(
+            "two texts have same hash codes",
+            () -> new HighlightedText("green", Ansi.Color.GREEN).hashCode(),
+            new IsEqual<>(
+                new Green("green").hashCode()
+            )
+        ).affirm();
     }
 
+    @Test
+    public void equality() {
+        new Assertion<>(
+            "two texts are equal",
+            () -> new HighlightedText("green", Ansi.Color.GREEN)
+                .equals(new Green("green")),
+            new IsTrue()
+        ).affirm();
+    }
+
+    @Test
+    public void compareTo() {
+        new Assertion<>(
+            "two texts are equal using compareTo",
+            () -> new HighlightedText("green", Ansi.Color.GREEN).compareTo(
+                new Green("green")
+            ),
+            new IsEqual<>(0)
+        ).affirm();
+    }
 }
