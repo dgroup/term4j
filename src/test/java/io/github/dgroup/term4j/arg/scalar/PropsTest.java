@@ -22,22 +22,28 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package io.github.dgroup.term4j.arg;
+package io.github.dgroup.term4j.arg.scalar;
 
-import java.util.Properties;
-import org.cactoos.Scalar;
+import org.hamcrest.core.IsEqual;
+import org.junit.Test;
+import org.llorllale.cactoos.matchers.Assertion;
 
 /**
- * The application properties.
- *
- * The properties might be specified using <em>-D</em> option.
+ * Test case for {@link Props}.
  *
  * @since 0.2.0
+ * @checkstyle MagicNumberCheck (500 lines)
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
-public final class Props implements Scalar<Properties> {
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+public final class PropsTest {
 
-    @Override
-    public Properties value() {
-        return System.getProperties();
+    @Test
+    public void value() {
+        new Assertion<>(
+            "fetch the application properties including custom one",
+            () -> new Props().value().getProperty("propof"),
+            new IsEqual<>("10")
+        ).affirm();
     }
 }
