@@ -45,7 +45,16 @@ public final class StdOf extends StdEnvelope {
      * Ctor.
      */
     public StdOf() {
-        this(System.out, StdOf.NO_INDENT);
+        this(StdOf.NO_INDENT);
+    }
+
+    /**
+     * Ctor.
+     * @param idnt The indent from the left side of terminal for more
+     *  fancy/readable messages.
+     */
+    public StdOf(final String idnt) {
+        this(System.out, idnt);
     }
 
     /**
