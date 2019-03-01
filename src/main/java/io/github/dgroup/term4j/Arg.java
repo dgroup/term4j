@@ -30,6 +30,7 @@ import io.github.dgroup.term4j.arg.ArgNotFoundException;
  *
  * @param <X> Type of item.
  * @since 0.1.0
+ * @todo #/DEV Arg should extends {@link org.cactoos.Scalar}
  */
 public interface Arg<X> {
 

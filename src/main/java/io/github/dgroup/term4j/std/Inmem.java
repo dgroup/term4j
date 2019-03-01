@@ -25,6 +25,7 @@ package io.github.dgroup.term4j.std;
 
 import io.github.dgroup.term4j.Std;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import org.cactoos.Text;
 import org.cactoos.collection.Mapped;
@@ -45,7 +46,7 @@ public final class Inmem extends StdEnvelope {
      * Ctor.
      */
     public Inmem() {
-        this(new LinkedList<>());
+        this(Collections.synchronizedList(new LinkedList<>()));
     }
 
     /**
