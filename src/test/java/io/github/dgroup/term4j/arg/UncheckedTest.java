@@ -30,7 +30,7 @@ import org.junit.rules.ExpectedException;
 import org.llorllale.cactoos.matchers.Assertion;
 
 /**
- * Unit tests for class {@link Unchecked}.
+ * Unit tests for class {@link UncheckedArg}.
  *
  * @since 0.1.0
  * @checkstyle JavadocMethodCheck (500 lines)
@@ -48,7 +48,7 @@ public final class UncheckedTest {
     public void matches() {
         new Assertion<>(
             "argument must match",
-            () -> new Unchecked<>(
+            () -> new UncheckedArg<>(
                 new FakeArg<>("-f", "test.yml")
             ),
             new ArgIs<>("-f", "test.yml")
@@ -61,8 +61,8 @@ public final class UncheckedTest {
             "io.github.dgroup.term4j.arg.ArgNotFoundException: -f"
         );
         this.cause.expect(UncheckedArgNotFoundException.class);
-        new Unchecked<>(
-            new FakeArg<>(
+        new UncheckedArg<>(
+            new FakeArg<Integer>(
                 "-f",
                 () -> {
                     throw new ArgNotFoundException("-f");

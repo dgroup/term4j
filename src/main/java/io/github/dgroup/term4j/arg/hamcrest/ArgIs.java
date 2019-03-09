@@ -24,7 +24,7 @@
 package io.github.dgroup.term4j.arg.hamcrest;
 
 import io.github.dgroup.term4j.Arg;
-import io.github.dgroup.term4j.arg.Unchecked;
+import io.github.dgroup.term4j.arg.UncheckedArg;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
@@ -90,7 +90,7 @@ public final class ArgIs<T> extends TypeSafeMatcher<Arg<T>> {
     @Override
     protected boolean matchesSafely(final Arg<T> item) {
         return this.lbl.equals(item.label())
-            && this.val.equals(new Unchecked<>(item).value())
+            && this.val.equals(new UncheckedArg<>(item).value())
             && this.specified == item.specifiedByUser();
     }
 
@@ -101,7 +101,7 @@ public final class ArgIs<T> extends TypeSafeMatcher<Arg<T>> {
         desc.appendText("label was ")
             .appendValue(item.label())
             .appendText(", value was ")
-            .appendValue(new Unchecked<>(item).value())
+            .appendValue(new UncheckedArg<>(item).value())
             .appendText(", presence was ")
             .appendValue(item.specifiedByUser());
     }

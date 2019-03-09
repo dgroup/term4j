@@ -33,7 +33,7 @@ import org.cactoos.scalar.UncheckedScalar;
  * @param <T> Type of command-line argument.
  * @since 0.1.0
  */
-public final class Unchecked<T> implements Arg<T> {
+public final class UncheckedArg<T> implements Arg<T> {
 
     /**
      * Origin.
@@ -44,7 +44,7 @@ public final class Unchecked<T> implements Arg<T> {
      * Ctor.
      * @param arg Origin.
      */
-    public Unchecked(final Arg<T> arg) {
+    public UncheckedArg(final Arg<T> arg) {
         this(() -> arg);
     }
 
@@ -52,7 +52,7 @@ public final class Unchecked<T> implements Arg<T> {
      * Ctor.
      * @param arg Origin.
      */
-    public Unchecked(final Scalar<Arg<T>> arg) {
+    public UncheckedArg(final Scalar<Arg<T>> arg) {
         this.origin = arg;
     }
 

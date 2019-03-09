@@ -24,7 +24,7 @@
 package io.github.dgroup.term4j.arg.hamcrest;
 
 import io.github.dgroup.term4j.Arg;
-import io.github.dgroup.term4j.arg.Unchecked;
+import io.github.dgroup.term4j.arg.UncheckedArg;
 import org.cactoos.collection.CollectionOf;
 import org.cactoos.iterable.IterableOf;
 import org.cactoos.text.TextOf;
@@ -70,7 +70,7 @@ public final class ArgHave<T> extends TypeSafeMatcher<Arg<Iterable<T>>> {
     @Override
     protected boolean matchesSafely(final Arg<Iterable<T>> item) {
         return new CollectionOf<>(
-            new Unchecked<>(item).value()
+            new UncheckedArg<>(item).value()
         ).containsAll(
             new CollectionOf<>(this.expected)
         );
@@ -80,6 +80,6 @@ public final class ArgHave<T> extends TypeSafeMatcher<Arg<Iterable<T>>> {
     protected void describeMismatchSafely(
         final Arg<Iterable<T>> item, final Description dsc
     ) {
-        dsc.appendValue(new TextOf(new Unchecked<>(item).value()));
+        dsc.appendValue(new TextOf(new UncheckedArg<>(item).value()));
     }
 }
