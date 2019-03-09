@@ -24,15 +24,15 @@
 package io.github.dgroup.term4j;
 
 import io.github.dgroup.term4j.arg.ArgNotFoundException;
+import org.cactoos.Scalar;
 
 /**
  * Represents the command-line argument.
  *
  * @param <X> Type of item.
  * @since 0.1.0
- * @todo #/DEV Arg should extends {@link org.cactoos.Scalar}
  */
-public interface Arg<X> {
+public interface Arg<X> extends Scalar<X> {
 
     /**
      * The label of the command-line argument.
