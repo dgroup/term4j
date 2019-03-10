@@ -104,10 +104,18 @@ public class ArgEnvelope<X> implements Arg<X> {
 
     /**
      * Ctor.
-     * @param origin Origin.
+     * @param origin The original argument.
      */
     public ArgEnvelope(final Arg<X> origin) {
-        this.origin = new StickyScalar<>(() -> origin);
+        this(() -> origin);
+    }
+
+    /**
+     * Ctor.
+     * @param origin The function to evaluate the original argument.
+     */
+    public ArgEnvelope(final Scalar<Arg<X>> origin) {
+        this.origin = new StickyScalar<>(origin);
     }
 
     @Override

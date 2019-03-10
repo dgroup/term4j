@@ -27,6 +27,7 @@ import io.github.dgroup.term4j.Arg;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import org.cactoos.Scalar;
 
 /**
  * The single file command-line argument.
@@ -53,14 +54,42 @@ public final class PathOf extends ArgEnvelope<Path> {
             src::label,
             () -> {
                 final Path path = Paths.get(src.value());
-                if (!path.toFile().exists() || path.toFile().isDirectory()) {
+                if (!path.toFile().exists()) {
                     throw new ArgNotFoundException(
                         "The file %s is absent or it is a folder", src.value()
                     );
                 }
                 return path;
             },
-            src::specifiedByUser
+            () -> src.specifiedByUser()
+                && Paths.get(src.value()).toFile().exists()
+        ));
+    }
+
+    /**
+     * Ctor.
+     * @param lbl The label of command-line argument.
+     * @param src The path to the file.
+     */
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
+    public PathOf(final String lbl, final Scalar<Path> src) {
+        super(new ArgOf<>(
+            () -> lbl, src,
+            () -> {
+                boolean specified;
+                try {
+                    final Path path = src.value();
+                    if (path == null) {
+                        specified = false;
+                    } else {
+                        specified = path.toFile().exists();
+                    }
+                    // @checkstyle IllegalCatchCheck (3 lines)
+                } catch (final Exception cause) {
+                    specified = false;
+                }
+                return specified;
+            }
         ));
     }
 
