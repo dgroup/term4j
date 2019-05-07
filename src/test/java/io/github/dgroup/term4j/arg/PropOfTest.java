@@ -40,7 +40,7 @@ public final class PropOfTest {
     public void value() {
         new Assertion<>(
             "The 'propof' property is set and equal 10",
-            () -> new PropOf("propof"),
+            new PropOf("propof"),
             new ArgHas<>("10")
         ).affirm();
     }

@@ -48,7 +48,7 @@ public final class UncheckedTest {
     public void matches() {
         new Assertion<>(
             "argument must match",
-            () -> new UncheckedArg<>(
+            new UncheckedArg<>(
                 new FakeArg<>("-f", "test.yml")
             ),
             new ArgIs<>("-f", "test.yml")

@@ -24,8 +24,8 @@
 package io.github.dgroup.term4j.arg.scalar;
 
 import org.cactoos.list.ListOf;
-import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.llorllale.cactoos.matchers.Assertion;
 import org.llorllale.cactoos.matchers.ScalarHasValue;
 
 /**
@@ -39,7 +39,8 @@ public final class ArgInTest {
 
     @Test
     public void inCmdArgs() {
-        MatcherAssert.assertThat(
+        new Assertion<>(
+            "the required argument is present",
             new ArgIn(
                 "-f",
                 new ListOf<>(
@@ -48,18 +49,19 @@ public final class ArgInTest {
                 )
             ),
             new ScalarHasValue<>(true)
-        );
+        ).affirm();
     }
 
     @Test
     public void outOfCmdArgs() {
-        MatcherAssert.assertThat(
+        new Assertion<>(
+            "the required argument is absent",
             new ArgIn(
                 "-f",
                 new ListOf<>("-f", "-i", "openjdk:9")
             ),
             new ScalarHasValue<>(false)
-        );
+        ).affirm();
     }
 
 }

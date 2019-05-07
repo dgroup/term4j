@@ -42,10 +42,8 @@ public final class YellowTest {
     public void asString() {
         new Assertion<>(
             "Yellow text is transformed into ANSI colored string",
-            () -> new Yellow("Warning"),
-            new TextIs(
-                "\u001B[93mWarning\u001B[m"
-            )
+            new Yellow("Warning"),
+            new TextIs("\u001B[93mWarning\u001B[m")
         ).affirm();
     }
 

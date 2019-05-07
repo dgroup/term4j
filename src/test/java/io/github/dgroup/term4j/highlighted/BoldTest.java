@@ -42,12 +42,8 @@ public final class BoldTest {
     public void asString() {
         new Assertion<>(
             "Red text is transformed into bold ANSI colored string",
-            () -> new Bold(
-                new Red("Failed")
-            ),
-            new TextIs(
-                "\u001B[1m\u001B[91mFailed\u001B[m\u001B[m"
-            )
+            new Bold(new Red("Failed")),
+            new TextIs("\u001B[1m\u001B[91mFailed\u001B[m\u001B[m")
         ).affirm();
     }
 

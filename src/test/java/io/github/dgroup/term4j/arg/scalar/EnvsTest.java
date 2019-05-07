@@ -42,7 +42,7 @@ public final class EnvsTest {
     public void value() {
         new Assertion<>(
             "The $JAVA_HOME variable is set",
-            () -> new Envs().value().getProperty("JAVA_HOME"),
+            new Envs().value().getProperty("JAVA_HOME"),
             new IsNot<>(new IsBlank())
         ).affirm();
     }

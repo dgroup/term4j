@@ -47,10 +47,10 @@ public final class FileOfTest {
     public final ExpectedException cause = ExpectedException.none();
 
     @Test
-    public void cmdArgValue() {
+    public void cmdArgValue() throws ArgNotFoundException {
         new Assertion<>(
             "The ctor for the command-line arguments detects the file",
-            () -> new FileOf(
+            new FileOf(
                 "-f", new ListOf<>("-f", "readme.md")
             ).value().exists(),
             new IsTrue()
@@ -58,11 +58,10 @@ public final class FileOfTest {
     }
 
     @Test
-    public void argValue() {
+    public void argValue() throws ArgNotFoundException {
         new Assertion<>(
             "The ctor for the Scalar<String> detects the file",
-            () -> new FileOf("-f", () -> "readme.md").value()
-                .exists(),
+            new FileOf("-f", () -> "readme.md").value().exists(),
             new IsTrue()
         ).affirm();
     }

@@ -43,10 +43,8 @@ public final class HighlightedTextTest {
     public void hashcode() {
         new Assertion<>(
             "two texts have same hash codes",
-            () -> new HighlightedText("green", Ansi.Color.GREEN).hashCode(),
-            new IsEqual<>(
-                new Green("green").hashCode()
-            )
+            new HighlightedText("green", Ansi.Color.GREEN).hashCode(),
+            new IsEqual<>(new Green("green").hashCode())
         ).affirm();
     }
 
@@ -54,8 +52,7 @@ public final class HighlightedTextTest {
     public void equality() {
         new Assertion<>(
             "two texts are equal",
-            () -> new HighlightedText("green", Ansi.Color.GREEN)
-                .equals(new Green("green")),
+            new HighlightedText("green", Ansi.Color.GREEN).equals(new Green("green")),
             new IsTrue()
         ).affirm();
     }
@@ -64,9 +61,7 @@ public final class HighlightedTextTest {
     public void compareTo() {
         new Assertion<>(
             "two texts are equal using compareTo",
-            () -> new HighlightedText("green", Ansi.Color.GREEN).compareTo(
-                new Green("green")
-            ),
+            new HighlightedText("green", Ansi.Color.GREEN).compareTo(new Green("green")),
             new IsEqual<>(0)
         ).affirm();
     }

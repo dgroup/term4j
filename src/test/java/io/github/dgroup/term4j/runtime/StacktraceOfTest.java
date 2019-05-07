@@ -42,9 +42,9 @@ public final class StacktraceOfTest {
     public void fullMessage() {
         new Assertion<>(
             "stacktrace represented as string",
-            () -> new StacktraceOf(new Exception(new IOException("Shit happens"))).toString(),
+            new StacktraceOf(new Exception(new IOException("Shit happens"))).toString(),
             new StringStartsWith("java.lang.Exception: java.io.IOException: Shit happens")
-        );
+        ).affirm();
     }
 
 }

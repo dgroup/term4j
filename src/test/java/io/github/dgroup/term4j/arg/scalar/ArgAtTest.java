@@ -25,9 +25,9 @@ package io.github.dgroup.term4j.arg.scalar;
 
 import io.github.dgroup.term4j.arg.StringOf;
 import org.cactoos.list.ListOf;
-import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsNot;
 import org.junit.Test;
+import org.llorllale.cactoos.matchers.Assertion;
 import org.llorllale.cactoos.matchers.IsTrue;
 
 /**
@@ -42,19 +42,21 @@ public final class ArgAtTest {
 
     @Test
     public void specified() {
-        MatcherAssert.assertThat(
+        new Assertion<>(
+            "the argument is specified",
             new StringOf(
                 "-o",
                 new ListOf<>("-o", "std"),
                 "Argument `-o` wasn't found"
             ).specifiedByUser(),
             new IsTrue()
-        );
+        ).affirm();
     }
 
     @Test
     public void notSpecified() {
-        MatcherAssert.assertThat(
+        new Assertion<>(
+            "the argument wasn't specified",
             new StringOf(
                 "-o",
                 new ListOf<>(
@@ -64,7 +66,7 @@ public final class ArgAtTest {
                 "Argument `-o` wasn't found"
             ).specifiedByUser(),
             new IsNot<>(new IsTrue())
-        );
+        ).affirm();
     }
 
 }

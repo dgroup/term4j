@@ -22,59 +22,50 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package io.github.dgroup.term4j.arg;
+package io.github.dgroup.term4j.runtime;
 
-import io.github.dgroup.term4j.arg.hamcrest.ArgHas;
-import java.nio.file.Paths;
-import org.cactoos.list.ListOf;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 import org.llorllale.cactoos.matchers.Assertion;
 
 /**
- * Test case for {@link FirstIn}.
+ * Test case for {@link RootcauseOf}.
  *
- * @since 0.3.0
+ * @since 0.1.0
  * @checkstyle JavadocMethodCheck (500 lines)
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
-public final class FirstInTest {
+public final class RootcauseOfTest {
 
     @Test
-    public void firstValue() {
+    public void exception() {
+        final Throwable cause = new RootcauseOf(
+            new Exception(
+                "Some code thrown the exception. I don't know what to do.",
+                new Exception(
+                    "I don't know, i've just got this shit",
+                    new IOException(
+                        "Something wen't wrong",
+                        new UncheckedIOException(
+                            new FileNotFoundException("Can't find the file.")
+                        )
+                    )
+                )
+            )
+        ).value();
         new Assertion<>(
-            "the 1st file was found",
-            new FirstIn<>(
-                new PathOf("-f", new ListOf<>("-f", "readme.md")),
-                new PathOf("-f", () -> Paths.get("readmeeee.md")),
-                new PathOf("-f", () -> Paths.get("readmeee.mdd"))
-            ),
-            new ArgHas<>(Paths.get("readme.md"))
+            "the root cause exception type is correct",
+            cause,
+            new IsInstanceOf(FileNotFoundException.class)
         ).affirm();
-    }
-
-    @Test
-    public void secondValue() {
         new Assertion<>(
-            "the 2nd file was found",
-            new FirstIn<>(
-                new PathOf("-f", new ListOf<>("-f", "red.md")),
-                new PathOf("-f", () -> Paths.get("readme.md")),
-                new PathOf("-f", () -> Paths.get("read.mddd"))
-            ),
-            new ArgHas<>(Paths.get("readme.md"))
-        ).affirm();
-    }
-
-    @Test
-    public void thirdValue() {
-        new Assertion<>(
-            "the 3rd file was found",
-            new FirstIn<>(
-                new PathOf("-f", new ListOf<>("-f", "red.md")),
-                new PathOf("-f", () -> Paths.get("read.mddd")),
-                new PathOf("-f", () -> Paths.get("readme.md"))
-            ),
-            new ArgHas<>(Paths.get("readme.md"))
-        ).affirm();
+            "the root cause message is correct",
+            cause.getMessage(),
+            new IsEqual<>("Can't find the file.")
+        );
     }
 }

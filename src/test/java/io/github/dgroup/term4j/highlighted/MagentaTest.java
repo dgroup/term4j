@@ -42,10 +42,8 @@ public final class MagentaTest {
     public void asString() {
         new Assertion<>(
             "Magenta text is transformed into ANSI colored string",
-            () -> new Magenta("Magenta"),
-            new TextIs(
-                "\u001B[95mMagenta\u001B[m"
-            )
+            new Magenta("Magenta"),
+            new TextIs("\u001B[95mMagenta\u001B[m")
         ).affirm();
     }
 

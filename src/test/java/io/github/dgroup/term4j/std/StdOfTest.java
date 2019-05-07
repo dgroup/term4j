@@ -28,6 +28,7 @@ import io.github.dgroup.term4j.Std;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 import org.llorllale.cactoos.matchers.Assertion;
@@ -46,19 +47,17 @@ public final class StdOfTest {
      * Simulate the STD print procedure using {@link PrintStream}.
      */
     @Test
-    public void print() {
+    public void print() throws UnsupportedEncodingException {
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try (PrintStream ps = new PrintStream(baos, true, "UTF-8")) {
+            final Std std = new StdOf(ps);
+            std.print("line1", "line2");
+            std.print("line3", "line4");
+            std.print("line%s", 5);
+        }
         new Assertion<>(
             "5 lines of text were printed to the output",
-            () -> {
-                final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                try (PrintStream ps = new PrintStream(baos, true, "UTF-8")) {
-                    final Std std = new StdOf(ps);
-                    std.print("line1", "line2");
-                    std.print("line3", "line4");
-                    std.print("line%s", 5);
-                }
-                return new String(baos.toByteArray(), StandardCharsets.UTF_8);
-            },
+            new String(baos.toByteArray(), StandardCharsets.UTF_8),
             new HasLines("line1", "line2", "line3", "line4", "line5")
         ).affirm();
     }
@@ -68,15 +67,13 @@ public final class StdOfTest {
      */
     @Test
     public void printToWriter() {
+        final StringWriter swter = new StringWriter();
+        final Std std = new StdOf(swter);
+        std.print("line1", "line2");
+        std.print("line3", "line4");
         new Assertion<>(
             "4 lines of text were printed to the output",
-            () -> {
-                final StringWriter swter = new StringWriter();
-                final Std std = new StdOf(swter);
-                std.print("line1", "line2");
-                std.print("line3", "line4");
-                return swter.toString();
-            },
+            swter.toString(),
             new HasLines("line1", "line2", "line3", "line4")
         ).affirm();
     }

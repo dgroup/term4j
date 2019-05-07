@@ -42,7 +42,7 @@ public final class PropsTest {
     public void value() {
         new Assertion<>(
             "fetch the application properties including custom one",
-            () -> new Props().value().getProperty("propof"),
+            new Props().value().getProperty("propof"),
             new IsEqual<>("10")
         ).affirm();
     }

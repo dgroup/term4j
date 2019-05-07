@@ -42,10 +42,8 @@ public final class GreenTest {
     public void asString() {
         new Assertion<>(
             "Green text is transformed into ANSI colored string",
-            () -> new Green("Passed"),
-            new TextIs(
-                "\u001B[92mPassed\u001B[m"
-            )
+            new Green("Passed"),
+            new TextIs("\u001B[92mPassed\u001B[m")
         ).affirm();
     }
 

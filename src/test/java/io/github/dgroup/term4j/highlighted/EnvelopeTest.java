@@ -42,7 +42,7 @@ public final class EnvelopeTest {
     public void equalTo() {
         new Assertion<>(
             "Two red texts are equal",
-            () -> new Red("Failed"),
+            new Red("Failed"),
             new IsEqual<>(new Red("Failed"))
         );
     }

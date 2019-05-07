@@ -42,10 +42,8 @@ public final class RedTest {
     public void asString() {
         new Assertion<>(
             "Red text is transformed into ANSI colored string",
-            () -> new Red("Failed"),
-            new TextIs(
-                "\u001B[91mFailed\u001B[m"
-            )
+            new Red("Failed"),
+            new TextIs("\u001B[91mFailed\u001B[m")
         ).affirm();
     }
 

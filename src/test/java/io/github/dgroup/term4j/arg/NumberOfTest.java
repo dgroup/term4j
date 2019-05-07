@@ -40,10 +40,10 @@ import org.llorllale.cactoos.matchers.Assertion;
 public final class NumberOfTest {
 
     @Test
-    public void doubleValue() {
+    public void doubleValue() throws ArgNotFoundException {
         new Assertion<>(
             "The argument has expected double value equal to 5.5",
-            () -> new NumberOf(
+            new NumberOf(
                 "--double-arg",
                 new ListOf<>("--double-arg", "5.5")
             ).value().doubleValue(),
@@ -55,11 +55,9 @@ public final class NumberOfTest {
     public void intValue() throws ArgNotFoundException {
         new Assertion<>(
             "The argument has expected int value equal to 5",
-            () -> new NumberOf(
+            new NumberOf(
                 "--int-arg",
-                new ListOf<>(
-                    "--int-arg", "5"
-                )
+                new ListOf<>("--int-arg", "5")
             ).value().intValue(),
             new IsEqual<>(5)
         ).affirm();

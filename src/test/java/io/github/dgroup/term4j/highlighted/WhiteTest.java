@@ -42,10 +42,8 @@ public final class WhiteTest {
     public void asString() {
         new Assertion<>(
             "White text is transformed into ANSI colored string",
-            () -> new White("White"),
-            new TextIs(
-                "\u001B[97mWhite\u001B[m"
-            )
+            new White("White"),
+            new TextIs("\u001B[97mWhite\u001B[m")
         ).affirm();
     }
 

@@ -53,9 +53,9 @@ public final class ArgHaveTest {
     public void matches() {
         new Assertion<>(
             "argument has proper multiple values",
-            () -> new FakeArg<>("--admin", new IterableOf<>("Tom", "Alex")),
+            new FakeArg<>("--admin", new IterableOf<>("Tom", "Alex")),
             new ArgHave<>("Tom", "Alex")
-        );
+        ).affirm();
     }
 
     /**

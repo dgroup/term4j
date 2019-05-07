@@ -39,10 +39,10 @@ import org.llorllale.cactoos.matchers.IsBlank;
 public final class EnvOfTest {
 
     @Test
-    public void value() {
+    public void value() throws ArgNotFoundException {
         new Assertion<>(
             "The JAVA_HOME environment variable is set and is not blank",
-            () -> new EnvOf("JAVA_HOME").value(),
+            new EnvOf("JAVA_HOME").value(),
             new IsNot<>(new IsBlank())
         ).affirm();
     }

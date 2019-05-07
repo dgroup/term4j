@@ -42,10 +42,8 @@ public final class BlackTest {
     public void asString() {
         new Assertion<>(
             "Black text is transformed into ANSI colored string",
-            () -> new Black("Black"),
-            new TextIs(
-                "\u001B[90mBlack\u001B[m"
-            )
+            new Black("Black"),
+            new TextIs("\u001B[90mBlack\u001B[m")
         ).affirm();
     }
 

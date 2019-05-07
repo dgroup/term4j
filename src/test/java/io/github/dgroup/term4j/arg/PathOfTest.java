@@ -25,10 +25,10 @@
 package io.github.dgroup.term4j.arg;
 
 import org.cactoos.list.ListOf;
-import org.hamcrest.MatcherAssert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.llorllale.cactoos.matchers.Assertion;
 import org.llorllale.cactoos.matchers.IsTrue;
 
 /**
@@ -48,12 +48,13 @@ public final class PathOfTest {
 
     @Test
     public void value() throws ArgNotFoundException {
-        MatcherAssert.assertThat(
+        new Assertion<>(
+            "the file expected file is found",
             new PathOf(
                 "-r", new ListOf<>("-r", "readme.md")
             ).value().toFile().exists(),
             new IsTrue()
-        );
+        ).affirm();
     }
 
     @Test

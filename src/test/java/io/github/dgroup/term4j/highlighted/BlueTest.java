@@ -42,10 +42,8 @@ public final class BlueTest {
     public void asString() {
         new Assertion<>(
             "Blue text is transformed into ANSI colored string",
-            () -> new Blue("Blue"),
-            new TextIs(
-                "\u001B[94mBlue\u001B[m"
-            )
+            new Blue("Blue"),
+            new TextIs("\u001B[94mBlue\u001B[m")
         ).affirm();
     }
 
