@@ -25,7 +25,7 @@ package io.github.dgroup.term4j.arg;
 
 import io.github.dgroup.term4j.Arg;
 import org.cactoos.Scalar;
-import org.cactoos.scalar.UncheckedScalar;
+import org.cactoos.scalar.Unchecked;
 
 /**
  * Fake implementation of {@link Arg} for unit testing purposes.
@@ -100,7 +100,7 @@ public final class FakeArg<X> implements Arg<X> {
 
     @Override
     public X value() {
-        return new UncheckedScalar<>(this.val).value();
+        return new Unchecked<>(this.val).value();
     }
 
     @Override

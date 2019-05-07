@@ -27,9 +27,9 @@ package io.github.dgroup.term4j.runtime;
 import java.util.ArrayList;
 import java.util.List;
 import org.cactoos.Scalar;
-import org.cactoos.scalar.StickyScalar;
+import org.cactoos.scalar.Sticky;
 import org.cactoos.scalar.Ternary;
-import org.cactoos.scalar.UncheckedScalar;
+import org.cactoos.scalar.Unchecked;
 
 /**
  * Represents root cause exception for particular exception.
@@ -50,7 +50,7 @@ public final class RootcauseOf implements Scalar<Throwable> {
      */
     public RootcauseOf(final Throwable wrapped) {
         this(
-            new StickyScalar<>(
+            new Sticky<>(
                 () -> {
                     Throwable rcause = new Ternary<>(
                         () -> wrapped.getCause() == null,
@@ -79,6 +79,6 @@ public final class RootcauseOf implements Scalar<Throwable> {
 
     @Override
     public Throwable value() {
-        return new UncheckedScalar<>(this.cause).value();
+        return new Unchecked<>(this.cause).value();
     }
 }

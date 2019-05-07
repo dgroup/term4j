@@ -25,7 +25,7 @@ package io.github.dgroup.term4j.runtime;
 
 import io.github.dgroup.term4j.Runtime;
 import org.cactoos.Scalar;
-import org.cactoos.scalar.UncheckedScalar;
+import org.cactoos.scalar.Unchecked;
 
 /**
  * Represent current application process.
@@ -56,6 +56,6 @@ public final class RuntimeOf implements Runtime {
 
     @Override
     public void shutdownWith(final int code) {
-        new UncheckedScalar<>(this.runtime).value().exit(code);
+        new Unchecked<>(this.runtime).value().exit(code);
     }
 }

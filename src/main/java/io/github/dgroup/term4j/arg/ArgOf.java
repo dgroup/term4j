@@ -25,9 +25,9 @@ package io.github.dgroup.term4j.arg;
 
 import io.github.dgroup.term4j.Arg;
 import org.cactoos.Scalar;
-import org.cactoos.scalar.StickyScalar;
+import org.cactoos.scalar.Sticky;
 import org.cactoos.scalar.True;
-import org.cactoos.scalar.UncheckedScalar;
+import org.cactoos.scalar.Unchecked;
 
 /**
  * The single argument.
@@ -80,14 +80,14 @@ public final class ArgOf<X> implements Arg<X> {
     public ArgOf(
         final Scalar<String> lbl, final Scalar<X> val, final Scalar<Boolean> spc
     ) {
-        this.lbl = new StickyScalar<>(lbl);
-        this.val = new StickyScalar<>(val);
-        this.spc = new StickyScalar<>(spc);
+        this.lbl = new Sticky<>(lbl);
+        this.val = new Sticky<>(val);
+        this.spc = new Sticky<>(spc);
     }
 
     @Override
     public String label() {
-        return new UncheckedScalar<>(this.lbl).value();
+        return new Unchecked<>(this.lbl).value();
     }
 
     @Override
@@ -103,6 +103,6 @@ public final class ArgOf<X> implements Arg<X> {
 
     @Override
     public boolean specifiedByUser() {
-        return new UncheckedScalar<>(this.spc).value();
+        return new Unchecked<>(this.spc).value();
     }
 }

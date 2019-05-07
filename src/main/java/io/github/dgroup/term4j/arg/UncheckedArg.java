@@ -25,7 +25,7 @@ package io.github.dgroup.term4j.arg;
 
 import io.github.dgroup.term4j.Arg;
 import org.cactoos.Scalar;
-import org.cactoos.scalar.UncheckedScalar;
+import org.cactoos.scalar.Unchecked;
 
 /**
  * Argument that doesn't throw the checked {@link Exception}.
@@ -58,7 +58,7 @@ public final class UncheckedArg<T> implements Arg<T> {
 
     @Override
     public String label() {
-        return new UncheckedScalar<>(this.origin).value().label();
+        return new Unchecked<>(this.origin).value().label();
     }
 
     @Override
@@ -74,7 +74,7 @@ public final class UncheckedArg<T> implements Arg<T> {
 
     @Override
     public boolean specifiedByUser() {
-        return new UncheckedScalar<>(this.origin).value().specifiedByUser();
+        return new Unchecked<>(this.origin).value().specifiedByUser();
     }
 
 }

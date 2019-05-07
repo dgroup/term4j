@@ -27,8 +27,8 @@ package io.github.dgroup.term4j.runtime;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import org.cactoos.Scalar;
-import org.cactoos.scalar.StickyScalar;
-import org.cactoos.scalar.UncheckedScalar;
+import org.cactoos.scalar.Sticky;
+import org.cactoos.scalar.Unchecked;
 
 /**
  * Exception stacktrace.
@@ -40,7 +40,7 @@ public final class StacktraceOf implements Scalar<String> {
     /**
      * The text.
      */
-    private final UncheckedScalar<String> txt;
+    private final Unchecked<String> txt;
 
     /**
      * Ctor.
@@ -48,7 +48,7 @@ public final class StacktraceOf implements Scalar<String> {
      */
     public StacktraceOf(final Throwable cause) {
         this(
-            new StickyScalar<>(
+            new Sticky<>(
                 () -> {
                     final StringWriter swr = new StringWriter();
                     final PrintWriter pwr = new PrintWriter(swr, true);
@@ -64,8 +64,8 @@ public final class StacktraceOf implements Scalar<String> {
      * @param txt The stacktrace as text.
      */
     public StacktraceOf(final Scalar<String> txt) {
-        this.txt = new UncheckedScalar<>(
-            new StickyScalar<>(txt)
+        this.txt = new Unchecked<>(
+            new Sticky<>(txt)
         );
     }
 

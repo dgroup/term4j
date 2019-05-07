@@ -26,7 +26,7 @@ package io.github.dgroup.term4j.arg.scalar;
 import java.util.List;
 import org.cactoos.Scalar;
 import org.cactoos.scalar.Ternary;
-import org.cactoos.scalar.UncheckedScalar;
+import org.cactoos.scalar.Unchecked;
 
 /**
  * Check that the argument was specified by the user or not.
@@ -58,7 +58,7 @@ public final class ArgIn implements Scalar<Boolean> {
     @Override
     public Boolean value() {
         final int index = this.args.indexOf(this.label);
-        return new UncheckedScalar<>(
+        return new Unchecked<>(
             new Ternary<>(
                 () -> index >= 0 && this.args.size() > 1,
                 () -> {

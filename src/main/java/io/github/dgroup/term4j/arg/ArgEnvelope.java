@@ -30,8 +30,8 @@ import java.util.List;
 import org.cactoos.Func;
 import org.cactoos.Scalar;
 import org.cactoos.Text;
-import org.cactoos.scalar.StickyScalar;
-import org.cactoos.scalar.UncheckedScalar;
+import org.cactoos.scalar.Sticky;
+import org.cactoos.scalar.Unchecked;
 import org.cactoos.text.FormattedText;
 
 /**
@@ -115,12 +115,12 @@ public class ArgEnvelope<X> implements Arg<X> {
      * @param origin The function to evaluate the original argument.
      */
     public ArgEnvelope(final Scalar<Arg<X>> origin) {
-        this.origin = new StickyScalar<>(origin);
+        this.origin = new Sticky<>(origin);
     }
 
     @Override
     public final String label() {
-        return new UncheckedScalar<>(this.origin).value().label();
+        return new Unchecked<>(this.origin).value().label();
     }
 
     @Override
@@ -136,7 +136,7 @@ public class ArgEnvelope<X> implements Arg<X> {
 
     @Override
     public final boolean specifiedByUser() {
-        return new UncheckedScalar<>(this.origin).value().specifiedByUser();
+        return new Unchecked<>(this.origin).value().specifiedByUser();
     }
 
 }

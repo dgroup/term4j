@@ -27,7 +27,7 @@ package io.github.dgroup.term4j.arg.scalar;
 import java.util.Properties;
 import org.cactoos.Scalar;
 import org.cactoos.scalar.PropertiesOf;
-import org.cactoos.scalar.UncheckedScalar;
+import org.cactoos.scalar.Unchecked;
 
 /**
  * The system environment.
@@ -38,7 +38,7 @@ public final class Envs implements Scalar<Properties> {
 
     @Override
     public Properties value() {
-        return new UncheckedScalar<>(
+        return new Unchecked<>(
             new PropertiesOf(
                 System.getenv()
             )
