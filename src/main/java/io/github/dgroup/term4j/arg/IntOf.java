@@ -21,24 +21,34 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package io.github.dgroup.term4j.arg;
 
+import io.github.dgroup.term4j.Arg;
 import java.util.List;
+import org.cactoos.Func;
 
 /**
- * The single numeric command-line argument.
+ * The single int command-line argument.
  *
  * @since 0.1.0
  */
-public final class NumberOf extends ArgEnvelope<Number> {
+public final class IntOf extends ArgEnvelope<Integer> {
 
     /**
      * Ctor.
      * @param lbl The label of command-line argument.
      * @param args All command-line arguments.
      */
-    public NumberOf(final String lbl, final List<String> args) {
-        super(lbl, args, Double::parseDouble);
+    public IntOf(final String lbl, final List<String> args) {
+        this(new StringOf(lbl, args));
     }
 
+    /**
+     * Ctor.
+     * @param arg The command-line argument.
+     */
+    public IntOf(final Arg<String> arg) {
+        super(new Mapped<>((Func<String, Integer>) Integer::parseInt, arg));
+    }
 }
