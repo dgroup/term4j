@@ -25,17 +25,33 @@
 package io.github.dgroup.term4j.arg;
 
 import io.github.dgroup.term4j.Arg;
+import org.cactoos.Scalar;
 import org.cactoos.scalar.Unchecked;
 
 /**
- * .
+ * Cached version of argument.
  *
+ * <p>This {@link Scalar} decorator technically is an in-memory cache.</p>
+ * <p>Pay attention that this class is not thread-safe.</p>
+ *
+ * @param <X> Type of command-line argument.
  * @since 0.1.0
  */
 public final class Sticky<X> implements Arg<X> {
 
+    /**
+     * The argument label.
+     */
     private final Unchecked<String> lbl;
+
+    /**
+     * The argument value.
+     */
     private final Unchecked<X> val;
+
+    /**
+     * The presence of the argument's value.
+     */
     private final Unchecked<Boolean> spcf;
 
     /**
