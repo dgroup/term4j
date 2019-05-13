@@ -39,6 +39,7 @@ public final class FirstIn<X> extends ArgEnvelope<X> {
      * Ctor.
      * @param args The arguments to detect first specified argument.
      */
+    @SafeVarargs
     public FirstIn(final Arg<X>... args) {
         this(new IterableOf<>(args));
     }
