@@ -25,6 +25,8 @@ package io.github.dgroup.term4j.runtime;
 
 import org.cactoos.Text;
 import org.cactoos.iterable.IterableOf;
+import org.cactoos.iterable.Mapped;
+import org.cactoos.text.TextOf;
 
 /**
  * Application error.
@@ -34,6 +36,7 @@ import org.cactoos.iterable.IterableOf;
  *
  * @since 0.1.0
  */
+@SuppressWarnings("PMD.OnlyOneConstructorShouldDoInitialization")
 public final class AppException extends Exception {
 
     /**
@@ -83,10 +86,29 @@ public final class AppException extends Exception {
     /**
      * Ctor.
      * @param exit Application exit code to be print to the user.
+     * @param cause The original root cause.
+     * @todo #/DEV Find a way how to avoid several constructors which do the initialisation.
+     *  Remote the PMD OnlyOneConstructorShouldDoInitialization violation.
+     */
+    public AppException(final Integer exit, final Throwable cause) {
+        super(cause);
+        this.exit = exit;
+        this.msg = new Mapped<>(
+            TextOf::new,
+            new IterableOf<>(
+                new StacktraceOf(cause)
+                    .value()
+                    .split(System.lineSeparator())
+            )
+        );
+    }
+
+    /**
+     * Ctor.
+     * @param exit Application exit code to be print to the user.
      * @param msg The message to be print to the user.
      */
     public AppException(final Integer exit, final Iterable<Text> msg) {
-        super();
         this.exit = exit;
         this.msg = msg;
     }
