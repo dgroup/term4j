@@ -62,10 +62,8 @@ public final class FileOf extends ArgEnvelope<File> {
             src::label,
             () -> {
                 final File path = new File(src.value());
-                if (!path.exists() || path.isDirectory()) {
-                    throw new ArgNotFoundException(
-                        "The file %s is absent or it is a folder", src.value()
-                    );
+                if (!path.exists()) {
+                    throw new ArgNotFoundException("The file '%s' is absent", src.value());
                 }
                 return path;
             },

@@ -78,7 +78,7 @@
     <mvn.gpg.version>1.5</mvn.gpg.version>
     <mvn.properties.version>1.0.0</mvn.properties.version>
     <jacoco.version>0.7.9</jacoco.version>
-    <qulice.version>0.18.18</qulice.version>
+    <qulice.version>0.18.19</qulice.version>
     <sonar.version>3.4.0.905</sonar.version>
     <commons-logging.version>1.2</commons-logging.version>
     <!-- General dependencies -->
