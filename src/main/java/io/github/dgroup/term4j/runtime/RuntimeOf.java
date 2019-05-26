@@ -30,7 +30,7 @@ import org.cactoos.scalar.Unchecked;
 /**
  * Represent current application process.
  *
- * @since 0.1.0
+ * @since 0.4.0
  */
 public final class RuntimeOf implements Runtime {
 

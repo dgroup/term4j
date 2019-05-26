@@ -31,7 +31,7 @@ import org.cactoos.Func;
 /**
  * The single long command-line argument.
  *
- * @since 0.1.0
+ * @since 0.4.0
  */
 public final class LongOf extends ArgEnvelope<Long> {
 
