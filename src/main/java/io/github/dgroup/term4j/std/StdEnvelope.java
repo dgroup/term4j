@@ -56,7 +56,7 @@ public class StdEnvelope implements Std {
     }
 
     @Override
-    public final void print(final String ptrn, final Object... args) {
+    public final void printf(final String ptrn, final Object... args) {
         this.print(new FormattedText(ptrn, args));
     }
 

@@ -53,7 +53,7 @@ public final class StdOfTest {
             final Std std = new StdOf(ps);
             std.print("line1", "line2");
             std.print("line3", "line4");
-            std.print("line%s", 5);
+            std.printf("line%s", 5);
         }
         new Assertion<>(
             "5 lines of text were printed to the output",

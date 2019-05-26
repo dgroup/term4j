@@ -49,7 +49,7 @@ public interface Std {
      *  failure.
      * @see org.cactoos.text.FormattedText
      */
-    void print(String ptrn, Object... args);
+    void printf(String ptrn, Object... args);
 
     /**
      * Print each message to the separate line.
