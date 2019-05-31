@@ -38,7 +38,7 @@ import org.hamcrest.TypeSafeMatcher;
  * @since 0.1.0
  * @checkstyle ProtectedMethodInFinalClassCheck (200 lines)
  */
-public final class ArgHave<T> extends TypeSafeMatcher<Arg<Iterable<T>>> {
+public final class ArgHave<T> extends TypeSafeMatcher<Arg<? extends Iterable<T>>> {
 
     /**
      * Expected value.
@@ -68,7 +68,7 @@ public final class ArgHave<T> extends TypeSafeMatcher<Arg<Iterable<T>>> {
     }
 
     @Override
-    protected boolean matchesSafely(final Arg<Iterable<T>> item) {
+    protected boolean matchesSafely(final Arg<? extends Iterable<T>> item) {
         return new CollectionOf<>(
             new UncheckedArg<>(item).value()
         ).containsAll(
@@ -78,7 +78,7 @@ public final class ArgHave<T> extends TypeSafeMatcher<Arg<Iterable<T>>> {
 
     @Override
     protected void describeMismatchSafely(
-        final Arg<Iterable<T>> item, final Description dsc
+        final Arg<? extends Iterable<T>> item, final Description dsc
     ) {
         dsc.appendValue(new TextOf(new UncheckedArg<>(item).value()));
     }
