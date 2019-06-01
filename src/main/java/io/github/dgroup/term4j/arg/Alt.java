@@ -32,7 +32,12 @@ import org.cactoos.Scalar;
  * @param <X> Type of command-line argument.
  * @since 0.1.0
  */
-public final class Alt<X> extends ArgEnvelope<X> {
+public final class Alt<X> implements Arg<X> {
+
+    /**
+     * The origin.
+     */
+    private final UncheckedArg<X> origin;
 
     /**
      * Ctor.
@@ -49,7 +54,7 @@ public final class Alt<X> extends ArgEnvelope<X> {
      * @param alt The alternative argument.
      */
     public Alt(final Arg<X> orig, final Scalar<X> alt) {
-        this(orig, new ArgOf<>(orig::label, alt::value));
+        this(orig, new ArgOf<>(orig::label, alt));
     }
 
     /**
@@ -79,19 +84,36 @@ public final class Alt<X> extends ArgEnvelope<X> {
      */
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public Alt(final Arg<X> orig, final Arg<X> alt) {
-        super(new ArgOf<>(
-            orig::label,
-            () -> {
-                X val;
-                try {
-                    val = orig.value();
-                    // @checkstyle IllegalCatchCheck (3 lines)
-                } catch (final Exception cause) {
-                    val = alt.value();
-                }
-                return val;
-            },
-            () -> orig.specifiedByUser() || alt.specifiedByUser()
-        ));
+        this.origin = new UncheckedArg<>(
+            new ArgOf<>(
+                orig::label,
+                () -> {
+                    X val;
+                    try {
+                        val = orig.value();
+                        // @checkstyle IllegalCatchCheck (3 lines)
+                    } catch (final Exception cause) {
+                        val = alt.value();
+                    }
+                    return val;
+                },
+                () -> orig.specifiedByUser() || alt.specifiedByUser()
+            )
+        );
+    }
+
+    @Override
+    public String label() {
+        return this.origin.label();
+    }
+
+    @Override
+    public X value() {
+        return this.origin.value();
+    }
+
+    @Override
+    public boolean specifiedByUser() {
+        return this.origin.specifiedByUser();
     }
 }
