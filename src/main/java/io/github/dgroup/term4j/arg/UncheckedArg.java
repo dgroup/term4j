@@ -33,7 +33,7 @@ import org.cactoos.scalar.Unchecked;
  * @param <T> Type of command-line argument.
  * @since 0.1.0
  */
-public final class UncheckedArg<T> implements Arg<T> {
+public class UncheckedArg<T> implements Arg<T> {
 
     /**
      * Origin.
@@ -57,13 +57,13 @@ public final class UncheckedArg<T> implements Arg<T> {
     }
 
     @Override
-    public String label() {
+    public final String label() {
         return new Unchecked<>(this.origin).value().label();
     }
 
     @Override
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public T value() {
+    public final T value() {
         // @checkstyle IllegalCatchCheck (5 lines)
         try {
             return this.origin.value().value();
@@ -73,8 +73,7 @@ public final class UncheckedArg<T> implements Arg<T> {
     }
 
     @Override
-    public boolean specifiedByUser() {
+    public final boolean specifiedByUser() {
         return new Unchecked<>(this.origin).value().specifiedByUser();
     }
-
 }

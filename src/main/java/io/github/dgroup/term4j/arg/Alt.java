@@ -32,7 +32,7 @@ import org.cactoos.Scalar;
  * @param <X> Type of command-line argument.
  * @since 0.1.0
  */
-public final class Alt<X> implements Arg<X> {
+public class Alt<X> implements Arg<X> {
 
     /**
      * The origin.
@@ -103,17 +103,17 @@ public final class Alt<X> implements Arg<X> {
     }
 
     @Override
-    public String label() {
+    public final String label() {
         return this.origin.label();
     }
 
     @Override
-    public X value() {
+    public final X value() {
         return this.origin.value();
     }
 
     @Override
-    public boolean specifiedByUser() {
+    public final boolean specifiedByUser() {
         return this.origin.specifiedByUser();
     }
 }
