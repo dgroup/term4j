@@ -24,9 +24,13 @@
 package io.github.dgroup.term4j.arg;
 
 import java.util.List;
+import org.cactoos.func.StickyFunc;
 
 /**
  * The single string command-line argument.
+ *
+ * The argument value evaluation is executed once.
+ * @see StickyFunc
  *
  * @since 0.1.0
  */
@@ -36,9 +40,10 @@ public final class StringOf extends ArgEnvelope<String> {
      * Ctor.
      * @param lbl The label of command-line argument.
      * @param args All command-line arguments.
+     * @see StickyFunc
      */
     public StringOf(final String lbl, final List<String> args) {
-        super(lbl, args, arg -> arg);
+        super(lbl, args, new StickyFunc<>(arg -> arg));
     }
 
     /**
@@ -46,11 +51,10 @@ public final class StringOf extends ArgEnvelope<String> {
      * @param lbl The label of command-line argument.
      * @param args All command-line arguments.
      * @param msg Error message in case if arguments wasn't specified by user.
+     * @see StickyFunc
      */
-    public StringOf(
-        final String lbl, final List<String> args, final String msg
-    ) {
-        super(lbl, args, arg -> arg, () -> msg);
+    public StringOf(final String lbl, final List<String> args, final String msg) {
+        super(lbl, args, new StickyFunc<>(arg -> arg), () -> msg);
     }
 
 }

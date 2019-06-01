@@ -25,7 +25,6 @@ package io.github.dgroup.term4j.arg;
 
 import io.github.dgroup.term4j.Arg;
 import org.cactoos.Scalar;
-import org.cactoos.scalar.Sticky;
 import org.cactoos.scalar.True;
 import org.cactoos.scalar.Unchecked;
 
@@ -77,12 +76,10 @@ public final class ArgOf<X> implements Arg<X> {
      * @param val The value of command-line argument.
      * @param spc The presence of the argument's value.
      */
-    public ArgOf(
-        final Scalar<String> lbl, final Scalar<X> val, final Scalar<Boolean> spc
-    ) {
-        this.lbl = new Sticky<>(lbl);
-        this.val = new Sticky<>(val);
-        this.spc = new Sticky<>(spc);
+    public ArgOf(final Scalar<String> lbl, final Scalar<X> val, final Scalar<Boolean> spc) {
+        this.lbl = lbl;
+        this.val = val;
+        this.spc = spc;
     }
 
     @Override

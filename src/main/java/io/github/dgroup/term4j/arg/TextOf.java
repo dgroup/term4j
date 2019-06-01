@@ -23,8 +23,11 @@
  */
 package io.github.dgroup.term4j.arg;
 
+import io.github.dgroup.term4j.Arg;
 import java.util.List;
+import org.cactoos.Func;
 import org.cactoos.Text;
+import org.cactoos.func.StickyFunc;
 
 /**
  * The single text command-line argument.
@@ -39,19 +42,26 @@ public final class TextOf extends ArgEnvelope<Text> {
      * @param args All command-line arguments.
      */
     public TextOf(final String lbl, final List<String> args) {
-        super(lbl, args, arg -> () -> arg);
+        this(new StringOf(lbl, args));
     }
 
     /**
      * Ctor.
+     * @param orig The command-line argument.
+     */
+    public TextOf(final Arg<String> orig) {
+        super(new Mapped<>((Func<String, Text>) org.cactoos.text.TextOf::new, orig));
+    }
+
+    /**
+     * Ctor.
+     * The argument value evaluation is executed once only.
      * @param lbl The label of command-line argument.
      * @param args All command-line arguments.
      * @param msg Error message in case if arguments wasn't specified by user.
+     * @see StickyFunc
      */
-    public TextOf(
-        final String lbl, final List<String> args, final String msg
-    ) {
-        super(lbl, args, arg -> () -> arg, () -> msg);
+    public TextOf(final String lbl, final List<String> args, final String msg) {
+        super(lbl, args, new StickyFunc<>(arg -> () -> arg), () -> msg);
     }
-
 }

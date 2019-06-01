@@ -26,7 +26,6 @@ package io.github.dgroup.term4j.arg;
 
 import io.github.dgroup.term4j.Arg;
 import java.util.List;
-import org.cactoos.Func;
 
 /**
  * The single boolean command-line argument.
@@ -49,6 +48,6 @@ public final class Bool extends ArgEnvelope<Boolean> {
      * @param arg The command-line argument.
      */
     public Bool(final Arg<String> arg) {
-        super(new Mapped<>((Func<String, Boolean>) Boolean::parseBoolean, arg));
+        super(new Mapped<>(Boolean::parseBoolean, arg));
     }
 }

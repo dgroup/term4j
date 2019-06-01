@@ -23,7 +23,9 @@
  */
 package io.github.dgroup.term4j.arg;
 
+import io.github.dgroup.term4j.Arg;
 import java.util.List;
+import org.cactoos.Func;
 
 /**
  * The single numeric command-line argument.
@@ -38,7 +40,14 @@ public final class NumberOf extends ArgEnvelope<Number> {
      * @param args All command-line arguments.
      */
     public NumberOf(final String lbl, final List<String> args) {
-        super(lbl, args, Double::parseDouble);
+        this(new StringOf(lbl, args));
     }
 
+    /**
+     * Ctor.
+     * @param arg The command-line argument.
+     */
+    public NumberOf(final Arg<String> arg) {
+        super(new Mapped<>((Func<String, Number>) Double::parseDouble, arg));
+    }
 }

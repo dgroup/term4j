@@ -61,8 +61,7 @@ public final class PathOf extends ArgEnvelope<Path> {
                 }
                 return path;
             },
-            () -> src.specifiedByUser()
-                && Paths.get(src.value()).toFile().exists()
+            () -> src.specifiedByUser() && Paths.get(src.value()).toFile().exists()
         ));
     }
 

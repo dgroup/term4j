@@ -30,7 +30,6 @@ import java.util.List;
 import org.cactoos.Func;
 import org.cactoos.Scalar;
 import org.cactoos.Text;
-import org.cactoos.scalar.Sticky;
 import org.cactoos.scalar.Unchecked;
 import org.cactoos.text.FormattedText;
 
@@ -54,9 +53,7 @@ public class ArgEnvelope<X> implements Arg<X> {
      * @param args All command-line arguments.
      * @param fnc To convert string argument value to instance of {@code <X>}.
      */
-    public ArgEnvelope(
-        final String label, final List<String> args, final Func<String, X> fnc
-    ) {
+    public ArgEnvelope(final String label, final List<String> args, final Func<String, X> fnc) {
         this(
             label, args, fnc,
             new FormattedText("Argument `%s` wasn't specified", label)
@@ -72,8 +69,7 @@ public class ArgEnvelope<X> implements Arg<X> {
      * @checkstyle ParameterNumberCheck (5 lines)
      */
     public ArgEnvelope(
-        final String label, final List<String> args, final Func<String, X> fnc,
-        final Text err
+        final String label, final List<String> args, final Func<String, X> fnc, final Text err
     ) {
         this(
             new Mapped<>(
@@ -115,7 +111,7 @@ public class ArgEnvelope<X> implements Arg<X> {
      * @param origin The function to evaluate the original argument.
      */
     public ArgEnvelope(final Scalar<Arg<X>> origin) {
-        this.origin = new Sticky<>(origin);
+        this.origin = origin;
     }
 
     @Override
