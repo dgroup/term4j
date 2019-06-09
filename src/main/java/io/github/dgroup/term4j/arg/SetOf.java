@@ -24,6 +24,8 @@
 
 package io.github.dgroup.term4j.arg;
 
+import io.github.dgroup.term4j.Arg;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -52,7 +54,19 @@ public final class SetOf extends ArgEnvelope<Set<String>> {
      * @param args All command-line arguments.
      */
     public SetOf(final String lbl, final String delim, final List<String> args) {
-        super(lbl, args, val -> new org.cactoos.set.SetOf<>(val.split(delim)));
+        this(new Strings(lbl, delim, args));
+    }
+
+    /**
+     * Ctor.
+     * @param arg The command-line argument.
+     */
+    public SetOf(final Arg<Collection<String>> arg) {
+        super(new ArgOf<Set<String>>(
+            arg::label,
+            () -> new org.cactoos.set.SetOf<>(arg.value()),
+            arg::specifiedByUser
+        ));
     }
 
 }
