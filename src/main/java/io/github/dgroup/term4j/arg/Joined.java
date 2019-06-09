@@ -42,7 +42,7 @@ public final class Joined<X> extends ArgEnvelope<Collection<X>> {
      * @param args All command-line arguments.
      * @param items The items to be merged into original value.
      */
-    public Joined(final Arg<Collection<X>> args, final X... items) {
+    public Joined(final Arg<? extends Collection<X>> args, final X... items) {
         this(args, new CollectionOf<>(items));
     }
 
@@ -51,7 +51,7 @@ public final class Joined<X> extends ArgEnvelope<Collection<X>> {
      * @param args All command-line arguments.
      * @param items The items to be merged into original value.
      */
-    public Joined(final Arg<Collection<X>> args, final Collection<X> items) {
+    public Joined(final Arg<? extends Collection<X>> args, final Collection<X> items) {
         super(new Arg<Collection<X>>() {
             @Override
             public String label() {
