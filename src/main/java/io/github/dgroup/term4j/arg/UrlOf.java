@@ -27,8 +27,6 @@ import io.github.dgroup.term4j.Arg;
 import java.net.URI;
 import java.net.URL;
 import java.util.List;
-import org.cactoos.scalar.Sticky;
-import org.cactoos.scalar.Unchecked;
 
 /**
  * The single URL command-line argument.
@@ -40,14 +38,9 @@ import org.cactoos.scalar.Unchecked;
 public final class UrlOf implements Arg<URL> {
 
     /**
-     * The resource url as plain string.
-     */
-    private final Arg<String> url;
-
-    /**
      * The evaluated url.
      */
-    private final Unchecked<URL> val;
+    private final Arg<URL> orig;
 
     /**
      * Ctor.
@@ -55,31 +48,29 @@ public final class UrlOf implements Arg<URL> {
      * @param args All command-line arguments.
      */
     public UrlOf(final String lbl, final List<String> args) {
-        this.url = new StringOf(lbl, args);
-        this.val = new Unchecked<>(
-            new Sticky<>(
-                () -> {
-                    if (!this.specifiedByUser()) {
-                        throw new ArgNotFoundException("Argument `%s` wasn't specified", lbl);
-                    }
-                    return new URI(this.url.value()).toURL();
-                }
-            )
-        );
+        this(new StringOf(lbl, args));
+    }
+
+    /**
+     * Ctor.
+     * @param arg The command-line argument.
+     */
+    public UrlOf(final Arg<String> arg) {
+        this.orig = new Mapped<>(url -> new URI(url).toURL(), arg);
     }
 
     @Override
     public String label() {
-        return this.url.label();
+        return this.orig.label();
     }
 
     @Override
-    public URL value() {
-        return this.val.value();
+    public URL value() throws ArgNotFoundException {
+        return this.orig.value();
     }
 
     @Override
     public boolean specifiedByUser() {
-        return this.url.specifiedByUser();
+        return this.orig.specifiedByUser();
     }
 }

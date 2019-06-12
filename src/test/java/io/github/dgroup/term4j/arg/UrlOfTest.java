@@ -47,7 +47,7 @@ public final class UrlOfTest {
     public final ExpectedException cause = ExpectedException.none();
 
     @Test
-    public void value() {
+    public void value() throws ArgNotFoundException {
         new Assertion<>(
             "the uri is parsed",
             new UrlOf(
@@ -58,8 +58,8 @@ public final class UrlOfTest {
     }
 
     @Test
-    public void wrongFormat()  {
-        this.cause.expect(java.io.UncheckedIOException.class);
+    public void wrongFormat() throws ArgNotFoundException {
+        this.cause.expect(ArgNotFoundException.class);
         this.cause.expectMessage("java.net.MalformedURLException: unknown protocol: httpss");
         new UrlOf(
             "--url", new ListOf<>("--url", "httpss://google.com")
