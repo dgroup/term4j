@@ -50,6 +50,7 @@ public final class Joined<X> extends ArgEnvelope<Collection<X>> {
      * Ctor.
      * @param args All command-line arguments.
      * @param items The items to be merged into original value.
+     * @checkstyle AnonInnerLengthCheck (30 lines)
      */
     public Joined(final Arg<? extends Collection<X>> args, final Collection<X> items) {
         super(new Arg<Collection<X>>() {
@@ -60,7 +61,13 @@ public final class Joined<X> extends ArgEnvelope<Collection<X>> {
 
             @Override
             public Collection<X> value() throws ArgNotFoundException {
-                return new org.cactoos.collection.Joined<>(args.value(), items);
+                final Collection<X> val;
+                if (this.specifiedByUser()) {
+                    val = new org.cactoos.collection.Joined<>(args.value(), items);
+                } else {
+                    val = items;
+                }
+                return val;
             }
 
             @Override

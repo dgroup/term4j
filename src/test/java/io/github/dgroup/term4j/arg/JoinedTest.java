@@ -63,4 +63,19 @@ public final class JoinedTest {
             new ArgHave<>("Tom", "Mike", "Hank", "Bob", "Alex")
         ).affirm();
     }
+
+    @Test
+    public void absent() {
+        new Assertion<>(
+            "The source argument wasn't specified at all",
+            new Joined<>(
+                new Strings(
+                    "--users",
+                    new ListOf<>("--host", "host.com")
+                ),
+                "Bob", "Alex"
+            ),
+            new ArgHave<>("Bob", "Alex")
+        ).affirm();
+    }
 }
