@@ -46,9 +46,28 @@ public final class FirstIn<X> extends ArgEnvelope<X> {
 
     /**
      * Ctor.
+     * @param err The error message in the case if no arguments found.
+     * @param args The arguments to detect first specified argument.
+     */
+    @SafeVarargs
+    public FirstIn(final String err, final Arg<X>... args) {
+        this(err, new IterableOf<>(args));
+    }
+
+    /**
+     * Ctor.
      * @param args The arguments to detect first specified argument.
      */
     public FirstIn(final Iterable<Arg<X>> args) {
+        this("No args specified", args);
+    }
+
+    /**
+     * Ctor.
+     * @param err The error message in the case if no arguments found.
+     * @param args The arguments to detect first specified argument.
+     */
+    public FirstIn(final String err, final Iterable<Arg<X>> args) {
         super(() -> {
             if (args == null) {
                 throw new ArgNotFoundException("Arguments are null");
@@ -62,7 +81,7 @@ public final class FirstIn<X> extends ArgEnvelope<X> {
                     continue;
                 }
             }
-            throw new ArgNotFoundException("No args specified");
+            throw new ArgNotFoundException(err);
         });
     }
 }

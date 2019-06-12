@@ -25,9 +25,12 @@
 package io.github.dgroup.term4j.arg;
 
 import io.github.dgroup.term4j.arg.hamcrest.ArgHas;
+import java.io.UncheckedIOException;
 import java.nio.file.Paths;
 import org.cactoos.list.ListOf;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.llorllale.cactoos.matchers.Assertion;
 
 /**
@@ -38,6 +41,12 @@ import org.llorllale.cactoos.matchers.Assertion;
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public final class FirstInTest {
+
+    /**
+     * The junit rule to catch and verify the exceptions during the unit tests.
+     */
+    @Rule
+    public final ExpectedException cause = ExpectedException.none();
 
     @Test
     public void firstValue() {
@@ -76,5 +85,16 @@ public final class FirstInTest {
             ),
             new ArgHas<>(Paths.get("readme.md"))
         ).affirm();
+    }
+
+    @Test
+    public void errorMessageIsCorrect() throws ArgNotFoundException {
+        this.cause.expect(UncheckedIOException.class);
+        this.cause.expectMessage("ArgNotFoundException: The '-f' argument wasn't specified");
+        new FirstIn<>(
+            "The '-f' argument wasn't specified",
+            new PathOf("-f", () -> null),
+            new PathOf("-f", () -> null)
+        ).value();
     }
 }
