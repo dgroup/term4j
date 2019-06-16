@@ -40,13 +40,13 @@ public class StdEnvelope implements Std {
     /**
      * The procedure to print the text to the standart output.
      */
-    private final Proc<Iterable<Text>> prc;
+    private final Proc<Iterable<? extends Text>> prc;
 
     /**
      * Ctor.
      * @param prc The procedure to print the text to the standart output.
      */
-    public StdEnvelope(final Proc<Iterable<Text>> prc) {
+    public StdEnvelope(final Proc<Iterable<? extends Text>> prc) {
         this.prc = prc;
     }
 
@@ -67,7 +67,7 @@ public class StdEnvelope implements Std {
 
     @Override
     @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public final void print(final Iterable<Text> msgs) {
+    public final void print(final Iterable<? extends Text> msgs) {
         try {
             this.prc.exec(msgs);
             // @checkstyle IllegalCatchCheck (3 lines)

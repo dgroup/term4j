@@ -65,6 +65,5 @@ public interface Std {
      * @throws UncheckedStdOutputException In the case of STD output printing
      *  failure.
      */
-    void print(Iterable<Text> msgs);
-
+    void print(Iterable<? extends Text> msgs);
 }

@@ -27,7 +27,6 @@ import java.io.PrintStream;
 import java.io.Writer;
 import org.cactoos.Proc;
 import org.cactoos.Text;
-import org.cactoos.scalar.And;
 
 /**
  * Default implementation of std output.
@@ -101,6 +100,10 @@ public final class StdOf extends StdEnvelope {
      * @param std The procedure to handle each line of the output.
      */
     public StdOf(final Proc<Text> std) {
-        super(msgs -> new And(std, msgs).value());
+        super(lines -> {
+            for (final Text line : lines) {
+                std.exec(line);
+            }
+        });
     }
 }
