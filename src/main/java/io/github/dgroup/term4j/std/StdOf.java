@@ -24,7 +24,6 @@
 package io.github.dgroup.term4j.std;
 
 import java.io.PrintStream;
-import java.io.Writer;
 import org.cactoos.Proc;
 import org.cactoos.Text;
 
@@ -71,14 +70,21 @@ public final class StdOf extends StdEnvelope {
      *  fancy/readable messages.
      */
     public StdOf(final PrintStream std, final String idnt) {
-        this(msg -> std.printf("%s%s%n", idnt, msg.asString()));
+        this(
+            lines -> {
+                for (final Text msg : lines) {
+                    std.printf("%s%s%n", idnt, msg.asString());
+                }
+            },
+            line -> std.printf("%s%s", idnt, line.asString())
+        );
     }
 
     /**
      * Ctor.
      * @param std The writer to redirect the output.
      */
-    public StdOf(final Writer std) {
+    public StdOf(final Appendable std) {
         this(std, StdOf.NO_INDENT);
     }
 
@@ -88,7 +94,7 @@ public final class StdOf extends StdEnvelope {
      * @param idnt The indent from the left side of terminal for more
      *  fancy/readable messages.
      */
-    public StdOf(final Writer std, final String idnt) {
+    public StdOf(final Appendable std, final String idnt) {
         this(msg -> std.append(idnt)
             .append(msg.asString())
             .append(System.lineSeparator())
@@ -97,13 +103,25 @@ public final class StdOf extends StdEnvelope {
 
     /**
      * Ctor.
-     * @param std The procedure to handle each line of the output.
+     * @param print The procedure to handle each line of the output.
      */
-    public StdOf(final Proc<Text> std) {
-        super(lines -> {
-            for (final Text line : lines) {
-                std.exec(line);
-            }
-        });
+    public StdOf(final Proc<Text> print) {
+        this(
+            lines -> {
+                for (final Text line : lines) {
+                    print.exec(line);
+                }
+            },
+            print
+        );
+    }
+
+    /**
+     * Ctor.
+     * @param print The procedure to print each line to the standard output with a new line.
+     * @param printf The procedure to print the text to the standard output without a new line.
+     */
+    public StdOf(final Proc<Iterable<? extends Text>> print, final Proc<Text> printf) {
+        super(print, printf);
     }
 }
