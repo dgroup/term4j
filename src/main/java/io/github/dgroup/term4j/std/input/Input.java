@@ -22,9 +22,20 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+package io.github.dgroup.term4j.std.input;
+
+import org.cactoos.Scalar;
+
 /**
- * The unit-tests for the package {@link io.github.dgroup.term4j.std}.
+ * The system input.
  *
- * @since 0.1.
+ * @since 0.4.0
  */
-package io.github.dgroup.term4j.std;
+public interface Input extends Scalar<String> {
+
+    /**
+     * The single line of system input.
+     * @return The new line for each call.
+     */
+    String value();
+}

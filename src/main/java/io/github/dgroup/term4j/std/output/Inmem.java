@@ -21,36 +21,49 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package io.github.dgroup.term4j.std.output;
 
-package io.github.dgroup.term4j.highlighted;
-
-import io.github.dgroup.term4j.std.output.Stdout;
-import org.junit.Test;
-import org.llorllale.cactoos.matchers.Assertion;
-import org.llorllale.cactoos.matchers.TextIs;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import org.cactoos.Text;
+import org.cactoos.collection.Mapped;
 
 /**
- * Test case for {@link Blue}.
+ * The {@link Output} which stores all messages in-memory.
  *
  * @since 0.1.0
- * @checkstyle JavadocMethodCheck (500 lines)
  */
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
-public final class BlueTest {
+public final class Inmem extends OutputEnvelope {
 
-    @Test
-    public void asString() {
-        new Assertion<>(
-            "Blue text is transformed into ANSI colored string",
-            new Blue("Blue"),
-            new TextIs("\u001B[94mBlue\u001B[m")
-        ).affirm();
+    /**
+     * The lines printed to the STD output.
+     */
+    private final Collection<String> stdout;
+
+    /**
+     * Ctor.
+     */
+    public Inmem() {
+        this(Collections.synchronizedList(new LinkedList<>()));
     }
 
-    @Test
-    public void visual() {
-        new Stdout().print(
-            new Blue("Blue")
-        );
+    /**
+     * Ctor.
+     * @param stdout The mutable collection to print the std out.
+     */
+    public Inmem(final Collection<String> stdout) {
+        super(msgs -> stdout.addAll(new Mapped<>(Text::asString, msgs)));
+        this.stdout = stdout;
     }
+
+    /**
+     * All lines (as is, without any modification) which were printed to the STD
+     *  output.
+     * @return The lines printed to the STD output.
+     */
+    public Collection<String> std() {
+        return this.stdout;
+    }
+
 }

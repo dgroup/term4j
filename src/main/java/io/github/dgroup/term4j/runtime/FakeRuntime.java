@@ -23,8 +23,6 @@
  */
 package io.github.dgroup.term4j.runtime;
 
-import io.github.dgroup.term4j.Runtime;
-
 /**
  * Fake implementation of {@link Runtime} for unit-testing purposes.
  *

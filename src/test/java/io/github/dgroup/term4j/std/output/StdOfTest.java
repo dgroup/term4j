@@ -22,9 +22,8 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package io.github.dgroup.term4j.std;
+package io.github.dgroup.term4j.std.output;
 
-import io.github.dgroup.term4j.Std;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.StringWriter;
@@ -35,7 +34,7 @@ import org.llorllale.cactoos.matchers.Assertion;
 import org.llorllale.cactoos.matchers.HasLines;
 
 /**
- * Test case for {@link StdOf}.
+ * Test case for {@link Stdout}.
  *
  * @since 0.1.0
  * @checkstyle MagicNumberCheck (200 lines)
@@ -50,7 +49,7 @@ public final class StdOfTest {
     public void print() throws UnsupportedEncodingException {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try (PrintStream ps = new PrintStream(baos, true, "UTF-8")) {
-            final Std std = new StdOf(ps);
+            final Output std = new Stdout(ps);
             std.print("line1", "line2");
             std.print("line3", "line4");
             std.printf("line%s", 5);
@@ -68,7 +67,7 @@ public final class StdOfTest {
     @Test
     public void printToWriter() {
         final StringWriter swter = new StringWriter();
-        final Std std = new StdOf(swter);
+        final Output std = new Stdout(swter);
         std.print("line1", "line2");
         std.print("line3", "line4");
         new Assertion<>(

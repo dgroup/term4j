@@ -24,7 +24,6 @@
 
 package io.github.dgroup.term4j.arg;
 
-import io.github.dgroup.term4j.Arg;
 import java.util.List;
 import org.cactoos.scalar.Sticky;
 import org.cactoos.scalar.Unchecked;

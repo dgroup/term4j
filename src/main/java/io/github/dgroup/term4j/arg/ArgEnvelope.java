@@ -23,7 +23,6 @@
  */
 package io.github.dgroup.term4j.arg;
 
-import io.github.dgroup.term4j.Arg;
 import io.github.dgroup.term4j.arg.scalar.ArgAt;
 import io.github.dgroup.term4j.arg.scalar.ArgIn;
 import java.util.List;

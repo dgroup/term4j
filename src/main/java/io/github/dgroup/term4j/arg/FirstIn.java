@@ -24,7 +24,6 @@
 
 package io.github.dgroup.term4j.arg;
 
-import io.github.dgroup.term4j.Arg;
 import org.cactoos.iterable.IterableOf;
 
 /**

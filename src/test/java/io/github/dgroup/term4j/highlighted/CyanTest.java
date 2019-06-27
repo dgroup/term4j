@@ -22,63 +22,35 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package io.github.dgroup.term4j.std;
+package io.github.dgroup.term4j.highlighted;
 
-import org.cactoos.Scalar;
-import org.cactoos.io.InputOf;
-import org.cactoos.text.Joined;
+import io.github.dgroup.term4j.std.output.Stdout;
 import org.junit.Test;
 import org.llorllale.cactoos.matchers.Assertion;
-import org.llorllale.cactoos.matchers.ScalarHasValue;
+import org.llorllale.cactoos.matchers.TextIs;
 
 /**
- * Test case for {@link StdIn}.
+ * Test case for {@link Cyan}.
  *
  * @since 0.4.0
+ * @checkstyle JavadocMethodCheck (500 lines)
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
-public final class StrInTest {
+public final class CyanTest {
 
-    /**
-     * The singe text line was read from {@link org.cactoos.Input} which represents
-     *  the standard system input (stdin).
-     */
     @Test
-    public void value() {
+    public void asString() {
         new Assertion<>(
-            "the value was read",
-            new StdIn(new InputOf("5")),
-            new ScalarHasValue<>("5")
+            "Cyan text is transformed into ANSI colored string",
+            new Cyan("Cyan"),
+            new TextIs("\u001B[96mCyan\u001B[m")
         ).affirm();
     }
 
-    /**
-     * The multiple text lines were read from {@link org.cactoos.Input} which represents
-     *  the standard system input (stdin).
-     */
     @Test
-    public void multiple() {
-        final Scalar<String> lines = new StdIn(
-            new InputOf(
-                new Joined(
-                    System.lineSeparator(), "1", "2", "3"
-                )
-            )
+    public void visual() {
+        new Stdout().print(
+            new Cyan("Cyan")
         );
-        new Assertion<>(
-            "the first line was read",
-            lines,
-            new ScalarHasValue<>("1")
-        ).affirm();
-        new Assertion<>(
-            "the second line was read",
-            lines,
-            new ScalarHasValue<>("2")
-        ).affirm();
-        new Assertion<>(
-            "the third line was read",
-            lines,
-            new ScalarHasValue<>("3")
-        ).affirm();
     }
 }

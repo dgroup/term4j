@@ -24,7 +24,6 @@
 
 package io.github.dgroup.term4j.highlighted;
 
-import io.github.dgroup.term4j.Highlighted;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 import org.llorllale.cactoos.matchers.Assertion;

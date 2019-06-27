@@ -21,49 +21,21 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
-package io.github.dgroup.term4j.std;
-
-import java.util.Scanner;
-import org.cactoos.Input;
-import org.cactoos.Scalar;
-import org.cactoos.io.Stdin;
-import org.cactoos.scalar.Sticky;
-import org.cactoos.scalar.Unchecked;
+package io.github.dgroup.term4j.runtime;
 
 /**
- * The standard system input (stdin).
+ * The current application process.
  *
- * @since 0.4.0
+ * @since 0.1.0
  */
-public final class StdIn implements Scalar<String> {
+public interface Runtime {
 
     /**
-     * The standard system input (stdin).
+     * Shutdown current CLI application using particular exit code in order to
+     *  notify the parent system process (for example bash script) about type of
+     *  failure.
+     * @param code The exit code.
      */
-    private final Unchecked<Scanner> src;
+    void shutdownWith(int code);
 
-    /**
-     * Ctor.
-     */
-    public StdIn() {
-        this(new Stdin());
-    }
-
-    /**
-     * Ctor.
-     * @param stdin The standard system input (stdin).
-     */
-    public StdIn(final Input stdin) {
-        this.src = new Unchecked<>(
-            new Sticky<>(
-                () -> new Scanner(stdin.stream())
-            )
-        );
-    }
-
-    @Override
-    public String value() {
-        return this.src.value().nextLine();
-    }
 }

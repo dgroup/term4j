@@ -21,7 +21,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.github.dgroup.term4j;
+package io.github.dgroup.term4j.std.output;
 
 import io.github.dgroup.term4j.std.UncheckedStdOutputException;
 import org.cactoos.Text;
@@ -31,7 +31,7 @@ import org.cactoos.Text;
  *
  * @since 0.1.0
  */
-public interface Std {
+public interface Output {
 
     /**
      * Print each message to the separate line.

@@ -23,7 +23,6 @@
  */
 package io.github.dgroup.term4j.runtime;
 
-import io.github.dgroup.term4j.Runtime;
 import org.cactoos.Scalar;
 import org.cactoos.scalar.Unchecked;
 
@@ -32,6 +31,7 @@ import org.cactoos.scalar.Unchecked;
  *
  * @since 0.4.0
  */
+@SuppressWarnings("PMD.UnnecessaryFullyQualifiedName")
 public final class RuntimeOf implements Runtime {
 
     /**

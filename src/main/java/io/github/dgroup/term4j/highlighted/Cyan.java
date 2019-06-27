@@ -21,36 +21,25 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 package io.github.dgroup.term4j.highlighted;
 
-import io.github.dgroup.term4j.std.output.Stdout;
-import org.junit.Test;
-import org.llorllale.cactoos.matchers.Assertion;
-import org.llorllale.cactoos.matchers.TextIs;
+import org.fusesource.jansi.Ansi;
 
 /**
- * Test case for {@link Blue}.
+ * Highlight the text using cyan color from <em>jansi</em> library.
+ *
+ * @see Ansi.Color#CYAN
  *
  * @since 0.1.0
- * @checkstyle JavadocMethodCheck (500 lines)
  */
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
-public final class BlueTest {
+public final class Cyan extends HighlightedText {
 
-    @Test
-    public void asString() {
-        new Assertion<>(
-            "Blue text is transformed into ANSI colored string",
-            new Blue("Blue"),
-            new TextIs("\u001B[94mBlue\u001B[m")
-        ).affirm();
+    /**
+     * Ctor.
+     * @param msg The original message.
+     */
+    public Cyan(final Object msg) {
+        super(msg, Ansi.Color.CYAN);
     }
 
-    @Test
-    public void visual() {
-        new Stdout().print(
-            new Blue("Blue")
-        );
-    }
 }

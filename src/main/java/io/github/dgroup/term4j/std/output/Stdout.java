@@ -21,7 +21,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.github.dgroup.term4j.std;
+package io.github.dgroup.term4j.std.output;
 
 import java.io.PrintStream;
 import java.io.Writer;
@@ -34,7 +34,7 @@ import org.cactoos.scalar.And;
  *
  * @since 0.1.0
  */
-public final class StdOf extends StdEnvelope {
+public final class Stdout extends OutputEnvelope {
 
     /**
      * The indent from the left side for more fancy/readable messages.
@@ -44,8 +44,8 @@ public final class StdOf extends StdEnvelope {
     /**
      * Ctor.
      */
-    public StdOf() {
-        this(StdOf.NO_INDENT);
+    public Stdout() {
+        this(Stdout.NO_INDENT);
     }
 
     /**
@@ -53,7 +53,7 @@ public final class StdOf extends StdEnvelope {
      * @param idnt The indent from the left side of terminal for more
      *  fancy/readable messages.
      */
-    public StdOf(final String idnt) {
+    public Stdout(final String idnt) {
         this(System.out, idnt);
     }
 
@@ -61,8 +61,8 @@ public final class StdOf extends StdEnvelope {
      * Ctor.
      * @param std The stream to redirect the output.
      */
-    public StdOf(final PrintStream std) {
-        this(std, StdOf.NO_INDENT);
+    public Stdout(final PrintStream std) {
+        this(std, Stdout.NO_INDENT);
     }
 
     /**
@@ -71,7 +71,7 @@ public final class StdOf extends StdEnvelope {
      * @param idnt The indent from the left side of terminal for more
      *  fancy/readable messages.
      */
-    public StdOf(final PrintStream std, final String idnt) {
+    public Stdout(final PrintStream std, final String idnt) {
         this(msg -> std.printf("%s%s%n", idnt, msg.asString()));
     }
 
@@ -79,8 +79,8 @@ public final class StdOf extends StdEnvelope {
      * Ctor.
      * @param std The writer to redirect the output.
      */
-    public StdOf(final Writer std) {
-        this(std, StdOf.NO_INDENT);
+    public Stdout(final Writer std) {
+        this(std, Stdout.NO_INDENT);
     }
 
     /**
@@ -89,7 +89,7 @@ public final class StdOf extends StdEnvelope {
      * @param idnt The indent from the left side of terminal for more
      *  fancy/readable messages.
      */
-    public StdOf(final Writer std, final String idnt) {
+    public Stdout(final Writer std, final String idnt) {
         this(msg -> std.append(idnt)
             .append(msg.asString())
             .append(System.lineSeparator())
@@ -100,7 +100,7 @@ public final class StdOf extends StdEnvelope {
      * Ctor.
      * @param std The procedure to handle each line of the output.
      */
-    public StdOf(final Proc<Text> std) {
+    public Stdout(final Proc<Text> std) {
         super(msgs -> new And(std, msgs).value());
     }
 }

@@ -21,9 +21,8 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.github.dgroup.term4j;
+package io.github.dgroup.term4j.arg;
 
-import io.github.dgroup.term4j.arg.ArgNotFoundException;
 import org.cactoos.Scalar;
 
 /**

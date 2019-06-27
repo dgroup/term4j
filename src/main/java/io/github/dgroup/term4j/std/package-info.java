@@ -23,7 +23,7 @@
  */
 
 /**
- * Classes dedicated to CLI application output.
+ * Classes dedicated to CLI application input/output.
  *
  * @since 0.1.0
  */

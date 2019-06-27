@@ -24,7 +24,7 @@
 
 package io.github.dgroup.term4j.highlighted;
 
-import io.github.dgroup.term4j.std.StdOf;
+import io.github.dgroup.term4j.std.output.Stdout;
 import org.junit.Test;
 import org.llorllale.cactoos.matchers.Assertion;
 import org.llorllale.cactoos.matchers.TextIs;
@@ -49,7 +49,7 @@ public final class BoldTest {
 
     @Test
     public void visual() {
-        new StdOf().print(
+        new Stdout().print(
             new Bold(
                 new Red("Failed")
             )

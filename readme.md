@@ -40,7 +40,8 @@ Java version required: 1.8+.
 Interface                   | Purpose                                                               | Implementations / Related
 ----------------------------|-----------------------------------------------------------------------|-------------------------------------------------
 [Arg\<T>](#argt)            | Allows to fetch the application arguments                             | [StringOf](#stringof--textof), [NumberOf](#numberof), [PathOf](), [FileOf](), [EnvOf](#envof), [PropOf](#propof), [Alt](#alt), [Unchecked](), [etc](src/main/java/io/github/dgroup/term4j/arg/) |
-[Std](#std)                 | Wrap the raw manipulation with `std out`                              | [StdOf](#stdof), [Inmem](), [etc](src/main/java/io/github/dgroup/term4j/std)
+[Input](#stdin)             | Wrap the raw manipulation with `std in`                              | [StdOf](#stdof), [Inmem](), [etc](src/main/java/io/github/dgroup/term4j/std)
+[Output](#stdout)           | Wrap the raw manipulation with `std out`                              | [StdOf](#stdof), [Inmem](), [etc](src/main/java/io/github/dgroup/term4j/std)
 [Highlighted](#highlighted) | The colored extension of [Text](https://goo.gl/2ZYC83) for `std out`  | [Green](src/main/java/io/github/dgroup/term4j/highlighted/Green.java), [Red](src/main/java/io/github/dgroup/term4j/highlighted/Red.java), [Yellow](src/main/java/io/github/dgroup/term4j/highlighted/Yellow.java), [etc](src/main/java/io/github/dgroup/term4j/highlighted)
 [Runtime](#runtimeof)       | Wrap the raw manipulation with JVM runtime                            | [RuntimeOf](src/main/java/io/github/dgroup/term4j/runtime/RuntimeOf.java), [FakeRuntime](src/main/java/io/github/dgroup/term4j/runtime/FakeRuntime.java), [AppException](src/main/java/io/github/dgroup/term4j/runtime/AppException.java), [Stacktrace](src/main/java/io/github/dgroup/term4j/runtime/Stacktrace.java), [etc](src/main/java/io/github/dgroup/term4j/runtime)
 
@@ -49,7 +50,7 @@ All examples below are using the following frameworks/libs:
  - [cactoos](https://github.com/yegor256/cactoos) - Object-Oriented Java primitives, as an alternative to Google Guava and Apache Commons.
  - [cactoos-matchers](https://github.com/yegor256/cactoos) - Object-Oriented Hamcrest matchers
 
-### [Arg\<T>](src/main/java/io/github/dgroup/term4j/Arg.java)
+### [Arg\<T>](src/main/java/io/github/dgroup/term4j/arg/Arg.java)
 #### [StringOf](src/main/java/io/github/dgroup/term4j/arg/StringOf.java) / [TextOf](src/main/java/io/github/dgroup/term4j/arg/TextOf.java)
 Fetch the string/[Text](https://goo.gl/2ZYC83) argument:
 ```bash
@@ -158,8 +159,37 @@ public static void main(String[] cargs) {
     );
 }
 ```
-### [Std](src/main/java/io/github/dgroup/term4j/Std.java)
-#### [StdOf](src/main/java/io/github/dgroup/term4j/std/StdOf.java)
+### [Input](src/main/java/io/github/dgroup/term4j/std/input/Input.java)
+#### [Stdin](src/main/java/io/github/dgroup/term4j/std/input/Stdin.java)
+Wrap the std out, for example for unit testing purposes:
+```java
+    /**
+     * Simulate the STD input procedure.
+     */
+    @Test
+    public void readFromStdin() {
+        /**
+         * The standard system input (stdin) which keeps the expected input lines in-memory
+         *  instead of direct manipulations with {@link System#in} or {@link Console}.
+         */
+        final Input stdin = new Stdin(
+            new InputOf(String.format("line1%nline2"))
+        );
+        MatcherAssert.assertThat(
+            "The 1st line was read from console",
+            stdin.value(),
+            new IsEqual("line1")
+        );
+        MatcherAssert.assertThat(
+            "The 2nd line was read from console",
+            stdin.value(),
+            new IsEqual("line2")
+        );
+    }
+```
+
+### [Output](src/main/java/io/github/dgroup/term4j/std/output/Output.java)
+#### [Stdout](src/main/java/io/github/dgroup/term4j/std/output/Stdout.java)
 Wrap the std out, for example for unit testing purposes:
 ```java
     /**
@@ -169,7 +199,7 @@ Wrap the std out, for example for unit testing purposes:
     public void printToWriter() {
         // Write 4 lines delimited by `\n` or `\r\n` to the StringWriter
         final StringWriter swter = new StringWriter();
-        final Std std = new StdOf(swter);
+        final Output std = new Stdout(swter);
         std.print("line1", "line2");
         std.print("line3", "line4");
         // Check that the result string has 4 lines

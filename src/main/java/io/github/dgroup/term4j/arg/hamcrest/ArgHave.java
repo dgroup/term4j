@@ -23,7 +23,7 @@
  */
 package io.github.dgroup.term4j.arg.hamcrest;
 
-import io.github.dgroup.term4j.Arg;
+import io.github.dgroup.term4j.arg.Arg;
 import io.github.dgroup.term4j.arg.UncheckedArg;
 import org.cactoos.collection.CollectionOf;
 import org.cactoos.iterable.IterableOf;

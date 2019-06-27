@@ -23,7 +23,6 @@
  */
 package io.github.dgroup.term4j.arg;
 
-import io.github.dgroup.term4j.Arg;
 import java.net.URI;
 import java.net.URL;
 import java.util.List;

@@ -21,50 +21,46 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.github.dgroup.term4j.std;
 
-import io.github.dgroup.term4j.Std;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
-import org.cactoos.Text;
-import org.cactoos.collection.Mapped;
+package io.github.dgroup.term4j.std.input;
+
+import java.util.Scanner;
+import org.cactoos.scalar.Sticky;
+import org.cactoos.scalar.Unchecked;
 
 /**
- * The {@link Std} which stores all messages in-memory.
+ * The standard system input (stdin).
  *
- * @since 0.1.0
+ * @since 0.4.0
  */
-public final class Inmem extends StdEnvelope {
+public final class Stdin implements Input {
 
     /**
-     * The lines printed to the STD output.
+     * The standard system input (stdin).
      */
-    private final Collection<String> stdout;
-
-    /**
-     * Ctor.
-     */
-    public Inmem() {
-        this(Collections.synchronizedList(new LinkedList<>()));
-    }
+    private final Unchecked<Scanner> src;
 
     /**
      * Ctor.
-     * @param stdout The mutable collection to print the std out.
      */
-    public Inmem(final Collection<String> stdout) {
-        super(msgs -> stdout.addAll(new Mapped<>(Text::asString, msgs)));
-        this.stdout = stdout;
+    public Stdin() {
+        this(new org.cactoos.io.Stdin());
     }
 
     /**
-     * All lines (as is, without any modification) which were printed to the STD
-     *  output.
-     * @return The lines printed to the STD output.
+     * Ctor.
+     * @param stdin The standard system input (stdin).
      */
-    public Collection<String> std() {
-        return this.stdout;
+    public Stdin(final org.cactoos.Input stdin) {
+        this.src = new Unchecked<>(
+            new Sticky<>(
+                () -> new Scanner(stdin.stream())
+            )
+        );
     }
 
+    @Override
+    public String value() {
+        return this.src.value().nextLine();
+    }
 }

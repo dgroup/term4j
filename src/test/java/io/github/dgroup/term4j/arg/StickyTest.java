@@ -24,7 +24,6 @@
 
 package io.github.dgroup.term4j.arg;
 
-import io.github.dgroup.term4j.Arg;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;

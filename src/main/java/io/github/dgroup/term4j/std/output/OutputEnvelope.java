@@ -21,9 +21,9 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.github.dgroup.term4j.std;
+package io.github.dgroup.term4j.std.output;
 
-import io.github.dgroup.term4j.Std;
+import io.github.dgroup.term4j.std.UncheckedStdOutputException;
 import org.cactoos.Proc;
 import org.cactoos.Text;
 import org.cactoos.iterable.IterableOf;
@@ -31,11 +31,11 @@ import org.cactoos.iterable.Mapped;
 import org.cactoos.text.FormattedText;
 
 /**
- * The envelope of {@link Std}.
+ * The envelope of {@link Output}.
  *
  * @since 0.1.0
  */
-public class StdEnvelope implements Std {
+public class OutputEnvelope implements Output {
 
     /**
      * The procedure to print the text to the standart output.
@@ -46,7 +46,7 @@ public class StdEnvelope implements Std {
      * Ctor.
      * @param prc The procedure to print the text to the standart output.
      */
-    public StdEnvelope(final Proc<Iterable<Text>> prc) {
+    public OutputEnvelope(final Proc<Iterable<Text>> prc) {
         this.prc = prc;
     }
 

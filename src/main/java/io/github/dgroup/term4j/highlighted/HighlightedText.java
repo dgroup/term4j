@@ -23,7 +23,6 @@
  */
 package io.github.dgroup.term4j.highlighted;
 
-import io.github.dgroup.term4j.Highlighted;
 import java.util.Objects;
 import org.cactoos.Func;
 import org.cactoos.Scalar;

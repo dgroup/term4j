@@ -22,20 +22,9 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package io.github.dgroup.term4j;
-
-import org.cactoos.Text;
-
 /**
- * Highlighted text.
+ * Classes dedicated to CLI application input.
  *
- * @since 0.1.0
+ * @since 0.4.0
  */
-public interface Highlighted extends Text {
-
-    /**
-     * Convert the text to the colored string.
-     * @return The colored string
-     */
-    String asString();
-}
+package io.github.dgroup.term4j.std.input;

@@ -21,21 +21,21 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.github.dgroup.term4j;
+
+package io.github.dgroup.term4j.highlighted;
+
+import org.cactoos.Text;
 
 /**
- * The current application process.
+ * Highlighted text.
  *
  * @since 0.1.0
  */
-public interface Runtime {
+public interface Highlighted extends Text {
 
     /**
-     * Shutdown current CLI application using particular exit code in order to
-     *  notify the parent system process (for example bash script) about type of
-     *  failure.
-     * @param code The exit code.
+     * Convert the text to the colored string.
+     * @return The colored string
      */
-    void shutdownWith(int code);
-
+    String asString();
 }

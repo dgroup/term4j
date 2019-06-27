@@ -22,35 +22,9 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package io.github.dgroup.term4j.highlighted;
-
-import io.github.dgroup.term4j.std.output.Stdout;
-import org.junit.Test;
-import org.llorllale.cactoos.matchers.Assertion;
-import org.llorllale.cactoos.matchers.TextIs;
-
 /**
- * Test case for {@link Blue}.
+ * The unit-tests for the package {@link io.github.dgroup.term4j.std.output}.
  *
- * @since 0.1.0
- * @checkstyle JavadocMethodCheck (500 lines)
+ * @since 0.4.0
  */
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
-public final class BlueTest {
-
-    @Test
-    public void asString() {
-        new Assertion<>(
-            "Blue text is transformed into ANSI colored string",
-            new Blue("Blue"),
-            new TextIs("\u001B[94mBlue\u001B[m")
-        ).affirm();
-    }
-
-    @Test
-    public void visual() {
-        new Stdout().print(
-            new Blue("Blue")
-        );
-    }
-}
+package io.github.dgroup.term4j.std.output;
