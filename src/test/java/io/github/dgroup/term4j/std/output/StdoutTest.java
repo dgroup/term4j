@@ -24,11 +24,17 @@
 
 package io.github.dgroup.term4j.std.output;
 
+import io.github.dgroup.term4j.highlighted.Green;
+import io.github.dgroup.term4j.highlighted.Highlighted;
+import io.github.dgroup.term4j.highlighted.Red;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
+import org.cactoos.collection.CollectionOf;
+import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 import org.llorllale.cactoos.matchers.Assertion;
 import org.llorllale.cactoos.matchers.HasLines;
@@ -38,9 +44,10 @@ import org.llorllale.cactoos.matchers.HasLines;
  *
  * @since 0.1.0
  * @checkstyle MagicNumberCheck (200 lines)
+ * @checkstyle ClassDataAbstractionCouplingCheck (200 lines)
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
-public final class StdOfTest {
+public final class StdoutTest {
 
     /**
      * Simulate the STD print procedure using {@link PrintStream}.
@@ -76,4 +83,37 @@ public final class StdOfTest {
             new HasLines("line1", "line2", "line3", "line4")
         ).affirm();
     }
+
+    /**
+     * Ensure that subtypes of {@link org.cactoos.Text} can be printed through the {@link Stdout}.
+     */
+    @Test
+    public void inheritance() {
+        final Collection<Highlighted> colours = new CollectionOf<>(
+            new Green(" one "), new Red(" two ")
+        );
+        final StringWriter swter = new StringWriter();
+        new Stdout(swter).print(colours);
+        new Assertion<>(
+            "subtypes of text has been printed",
+            swter.toString(),
+            new HasLines("\u001B[92m one \u001B[m", "\u001B[91m two \u001B[m")
+        ).affirm();
+    }
+
+    /**
+     * Simulate the STD print procedure using {@link StringWriter}
+     *  and {@link String#format(String, Object...)}.
+     */
+    @Test
+    public void printf() {
+        final StringWriter swter = new StringWriter();
+        new Stdout(swter).printf("line %s", "1");
+        new Assertion<>(
+            "4 lines of text were printed to the output",
+            swter.toString(),
+            new IsEqual<>("line 1")
+        ).affirm();
+    }
+
 }

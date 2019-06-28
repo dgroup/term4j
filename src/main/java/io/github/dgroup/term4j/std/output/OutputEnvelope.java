@@ -24,8 +24,10 @@
 package io.github.dgroup.term4j.std.output;
 
 import io.github.dgroup.term4j.std.UncheckedStdOutputException;
+import java.io.UncheckedIOException;
 import org.cactoos.Proc;
 import org.cactoos.Text;
+import org.cactoos.func.UncheckedProc;
 import org.cactoos.iterable.IterableOf;
 import org.cactoos.iterable.Mapped;
 import org.cactoos.text.FormattedText;
@@ -38,16 +40,23 @@ import org.cactoos.text.FormattedText;
 public class OutputEnvelope implements Output {
 
     /**
-     * The procedure to print the text to the standart output.
+     * The procedure to print the text to the standard output ending with new line.
      */
-    private final Proc<Iterable<Text>> prc;
+    private final UncheckedProc<Iterable<? extends Text>> prnt;
+
+    /**
+     * The procedure to print the text to the standard output.
+     */
+    private final UncheckedProc<Text> prntf;
 
     /**
      * Ctor.
-     * @param prc The procedure to print the text to the standart output.
+     * @param print The procedure to print each line to the standard output with a new line.
+     * @param printf The procedure to print the text to the standard output without a new line.
      */
-    public OutputEnvelope(final Proc<Iterable<Text>> prc) {
-        this.prc = prc;
+    public OutputEnvelope(final Proc<Iterable<? extends Text>> print, final Proc<Text> printf) {
+        this.prnt = new UncheckedProc<>(print);
+        this.prntf = new UncheckedProc<>(printf);
     }
 
     @Override
@@ -57,7 +66,11 @@ public class OutputEnvelope implements Output {
 
     @Override
     public final void printf(final String ptrn, final Object... args) {
-        this.print(new FormattedText(ptrn, args));
+        try {
+            this.prntf.exec(new FormattedText(ptrn, args));
+        } catch (final UncheckedIOException cause) {
+            throw new UncheckedStdOutputException(cause);
+        }
     }
 
     @Override
@@ -66,12 +79,10 @@ public class OutputEnvelope implements Output {
     }
 
     @Override
-    @SuppressWarnings("PMD.AvoidCatchingGenericException")
-    public final void print(final Iterable<Text> msgs) {
+    public final void print(final Iterable<? extends Text> msgs) {
         try {
-            this.prc.exec(msgs);
-            // @checkstyle IllegalCatchCheck (3 lines)
-        } catch (final Exception cause) {
+            this.prnt.exec(msgs);
+        } catch (final UncheckedIOException cause) {
             throw new UncheckedStdOutputException(cause);
         }
     }

@@ -24,10 +24,8 @@
 package io.github.dgroup.term4j.std.output;
 
 import java.io.PrintStream;
-import java.io.Writer;
 import org.cactoos.Proc;
 import org.cactoos.Text;
-import org.cactoos.scalar.And;
 
 /**
  * Default implementation of std output.
@@ -37,7 +35,7 @@ import org.cactoos.scalar.And;
 public final class Stdout extends OutputEnvelope {
 
     /**
-     * The indent from the left side for more fancy/readable messages.
+     * The indent from the left side of console for more fancy/readable messages.
      */
     private static final String NO_INDENT = "";
 
@@ -72,14 +70,21 @@ public final class Stdout extends OutputEnvelope {
      *  fancy/readable messages.
      */
     public Stdout(final PrintStream std, final String idnt) {
-        this(msg -> std.printf("%s%s%n", idnt, msg.asString()));
+        this(
+            lines -> {
+                for (final Text msg : lines) {
+                    std.printf("%s%s%n", idnt, msg.asString());
+                }
+            },
+            line -> std.printf("%s%s", idnt, line.asString())
+        );
     }
 
     /**
      * Ctor.
      * @param std The writer to redirect the output.
      */
-    public Stdout(final Writer std) {
+    public Stdout(final Appendable std) {
         this(std, Stdout.NO_INDENT);
     }
 
@@ -89,18 +94,25 @@ public final class Stdout extends OutputEnvelope {
      * @param idnt The indent from the left side of terminal for more
      *  fancy/readable messages.
      */
-    public Stdout(final Writer std, final String idnt) {
-        this(msg -> std.append(idnt)
-            .append(msg.asString())
-            .append(System.lineSeparator())
+    public Stdout(final Appendable std, final String idnt) {
+        this(
+            lines -> {
+                for (final Text line : lines) {
+                    std.append(idnt)
+                        .append(line.asString())
+                        .append(System.lineSeparator());
+                }
+            },
+            line -> std.append(idnt).append(line.asString())
         );
     }
 
     /**
      * Ctor.
-     * @param std The procedure to handle each line of the output.
+     * @param print The procedure to print each line to the standard output with a new line.
+     * @param printf The procedure to print the text to the standard output without a new line.
      */
-    public Stdout(final Proc<Text> std) {
-        super(msgs -> new And(std, msgs).value());
+    public Stdout(final Proc<Iterable<? extends Text>> print, final Proc<Text> printf) {
+        super(print, printf);
     }
 }
