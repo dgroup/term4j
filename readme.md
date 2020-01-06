@@ -2,6 +2,7 @@
 [![Javadocs](http://www.javadoc.io/badge/io.github.dgroup/term4j.svg)](http://www.javadoc.io/doc/io.github.dgroup/term4j)
 [![License: MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](./license.txt)
 [![Commit activity](https://img.shields.io/github/commit-activity/y/dgroup/term4j.svg?style=flat-square)](https://github.com/dgroup/term4j/graphs/commit-activity)
+[![Hits-of-Code](https://hitsofcode.com/github/dgroup/term4j)](https://hitsofcode.com/view/github/dgroup/term4j)
 
 [![Build Status](https://travis-ci.org/dgroup/term4j.svg?branch=master&style=for-the-badge)](https://travis-ci.org/dgroup/term4j)
 [![0pdd](http://www.0pdd.com/svg?name=dgroup/term4j)](http://www.0pdd.com/p?name=dgroup/term4j)
